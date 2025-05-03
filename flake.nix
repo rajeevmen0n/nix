@@ -74,7 +74,7 @@
         nixpkgs = inputs.nixpkgs;
         home-manager = inputs.home-manager;
         modules = [({pkgs, ...}: {
-              environment.systemPackages = [self.packages.${hosts.laptop-nixos.arch}.neovim];
+          environment.systemPackages = [self.packages.${hosts.laptop-nixos.arch}.neovim];
         })];
       };
 
