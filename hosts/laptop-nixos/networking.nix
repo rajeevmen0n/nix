@@ -1,4 +1,3 @@
-{ config, pkgs, ... }:
 let
   hosts = import ../../config/hosts.nix;
 in
