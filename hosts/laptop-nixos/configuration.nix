@@ -1,0 +1,33 @@
+{ config, pkgs, ... }:
+{
+  imports = [
+    ./hardware-configuration.nix
+    ./networking.nix
+    ../../nixos/audio.nix
+    ../../nixos/basic.nix
+    ../../nixos/gaming.nix
+    ../../nixos/gnome.nix
+    ../../nixos/ios.nix
+    ../../nixos/nvidia.nix
+    ../../nixos/users.nix
+  ];
+
+  # Known issue, kernel freeze when type c port is used
+  boot.blacklistedKernelModules = [ "ucsi_acpi" ];
+
+  # Enable OpenGL
+  hardware.graphics = {
+    enable = true;
+    enable32Bit = true;
+  };
+
+  # Asus linux
+  services.asusd.enable = true;
+  services.asusd.enableUserService = true;
+  services.supergfxd.enable = true;
+
+  # Enable powertop for seeing power consumption
+  powerManagement.powertop.enable = true;
+
+  system.stateVersion = "24.11";
+}
