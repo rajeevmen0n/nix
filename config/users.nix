@@ -2,6 +2,7 @@ let
   users = {
     default = {
       username = "";
+      name = "";
     };
   };
 
@@ -10,12 +11,12 @@ let
 
   bad =
     builtins.filter (
-      u: u.username == ""
+      u: u.username == "" || u.name == ""
     )
     vals;
 in
   assert builtins.length bad
   == 0
   || builtins.abort ''
-    config/users.nix: every user must have username.
+    config/users.nix: every user must have username, and name.
   ''; users

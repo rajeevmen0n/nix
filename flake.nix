@@ -53,7 +53,7 @@
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
-              home-manager.users."${host.user}" = import ./hosts/${host.dir}/home.nix;
+              home-manager.users."${host.user.username}" = import ./hosts/${host.dir}/home.nix;
             }
           ] ++ modules;
         };
