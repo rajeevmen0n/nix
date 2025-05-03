@@ -21,6 +21,10 @@
     enable32Bit = true;
   };
 
+  # Enable compression on partitions
+  fileSystems."/".options = [ "compress=zstd" ];
+  fileSystems."/mnt/files".options = [ "compress=zstd" ];
+
   # Asus linux
   services.asusd.enable = true;
   services.asusd.enableUserService = true;
