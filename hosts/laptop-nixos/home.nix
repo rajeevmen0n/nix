@@ -5,6 +5,7 @@ in
 {
   imports = [
     ../../home/dev.nix
+    ../../home/cli/btop.nix
   ];
 
   home.packages = with pkgs; [
