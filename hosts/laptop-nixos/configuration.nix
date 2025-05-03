@@ -29,8 +29,5 @@
   services.asusd.enableUserService = true;
   services.supergfxd.enable = true;
 
-  # Enable powertop for seeing power consumption
-  powerManagement.powertop.enable = true;
-
   system.stateVersion = "24.11";
 }
