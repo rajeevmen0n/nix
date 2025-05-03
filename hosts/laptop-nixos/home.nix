@@ -13,8 +13,8 @@ in
   ];
 
   home = {
-    username = users.default;
-    homeDirectory = "/home/${users.default}";
+    username = users.default.username;
+    homeDirectory = "/home/${users.default.username}";
     stateVersion = "24.11";
   };
 }

@@ -9,8 +9,9 @@ let
 in
 {
   programs.zsh.enable = true;
-  users.users.${users.default} = {
+  users.users.${users.default.username} = {
     isNormalUser = true;
+    description = users.default.name;
     shell = pkgs.zsh;
     extraGroups =
       [ "wheel" ]
