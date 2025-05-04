@@ -7,6 +7,7 @@
     ../../nixos/gaming.nix
     ../../nixos/gnome.nix
     ../../nixos/ios.nix
+    ../../nixos/media.nix
     ../../nixos/nvidia.nix
     ../../nixos/users.nix
   ];
