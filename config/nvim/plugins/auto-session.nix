@@ -2,15 +2,15 @@
 {
   vim = {
     lazy.plugins = {
-        "auto-session" = {
+      "auto-session" = {
         package = pkgs.vimPlugins.auto-session;
         setupModule = "auto-session";
         setupOpts = {
-            auto_save = true;
-            auto_restore = true;
-            suppressed_dirs = [ "~/" "~/Downloads" "~/Documents" "~/Desktop/" "~/tmp" "/tmp" ];
+          auto_save = true;
+          auto_restore = true;
+          suppressed_dirs = [ "~/" "~/Downloads" "~/Documents" "~/Desktop/" "~/tmp" "/tmp" ];
         };
-        };
+      };
     };
     keymaps = [
       {
