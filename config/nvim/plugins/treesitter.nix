@@ -19,7 +19,6 @@
       json
       lua
       make
-      nix
       ninja
       python
       regex
