@@ -7,6 +7,7 @@
     ./plugins/colorscheme.nix
     ./plugins/default.nix
     ./plugins/fzf.nix
+    ./plugins/git.nix
   ];
 
   vim = {
