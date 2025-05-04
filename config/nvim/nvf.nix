@@ -10,6 +10,7 @@
     ./plugins/git.nix
     ./plugins/nvim-cmp.nix
     ./plugins/scope-nvim.nix
+    ./plugins/treesitter.nix
     ./plugins/trouble.nix
   ];
 
