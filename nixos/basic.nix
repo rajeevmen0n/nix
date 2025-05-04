@@ -1,10 +1,7 @@
-{ pkgs, ... }:
-
-{
+{pkgs, ...}: {
   # Enable systemd-boot bootloader
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   # Enable NetworkManager
   networking.networkmanager.enable = true;
@@ -59,5 +56,5 @@
   ];
 
   # Add ZSH to /etc/shells
-  environment.shells = with pkgs; [ zsh ];
+  environment.shells = with pkgs; [zsh];
 }
