@@ -8,6 +8,7 @@
     ./plugins/default.nix
     ./plugins/fzf.nix
     ./plugins/git.nix
+    ./plugins/nvim-cmp.nix
   ];
 
   vim = {
