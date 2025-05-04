@@ -1,12 +1,12 @@
-{ pkgs, ... }:
 {
-  config.vim = {
+  imports = [
+    ./core/keymaps.nix
+    ./core/options.nix
+    ./plugins/default.nix
+  ];
+
+  vim = {
     viAlias = true;
     vimAlias = true;
-    lazy.plugins = {
-      "vim-tmux-navigator" = {
-        package = pkgs.vimPlugins.vim-tmux-navigator;
-      };
-    };
   };
 }
