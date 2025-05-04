@@ -1,6 +1,7 @@
 { lib, ... }:
 {
   imports = [
+    ./languages/default.nix
     ./languages/nix.nix
   ];
 
