@@ -1,7 +1,12 @@
 {
+  pkgs,
+  lib,
+  ...
+}: {
   imports = [
     ./hardware-configuration.nix
     ./networking.nix
+    ../../nixos/amdgpu.nix
     ../../nixos/audio.nix
     ../../nixos/basic.nix
     ../../nixos/gaming.nix
@@ -32,6 +37,15 @@
   services.asusd.enable = true;
   services.asusd.enableUserService = true;
   services.supergfxd.enable = true;
+
+  # Disable gnome-remote-desktop, because it prevents nvidia GPU from sleeping.
+  systemd.services.gnome-remote-desktop.wantedBy = lib.mkForce [];
+
+  environment.sessionVariables = {
+    # First the iGPU, then the dGPU
+    KWIN_DRM_DEVICES = "/dev/dri/card1:/dev/dri/card0";
+    COSMIC_RENDER_DEVICE = "/dev/dri/renderD129";
+  };
 
   system.stateVersion = "24.11";
 }
