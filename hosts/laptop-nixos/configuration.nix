@@ -13,7 +13,10 @@
   ];
 
   # Known issue, kernel freeze when type c port is used
-  boot.blacklistedKernelModules = [ "ucsi_acpi" ];
+  boot.blacklistedKernelModules = ["ucsi_acpi"];
+
+  # WiFi card doesn't work on the stable kernel
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   # Enable OpenGL
   hardware.graphics = {
@@ -22,8 +25,8 @@
   };
 
   # Enable compression on partitions
-  fileSystems."/".options = [ "compress=zstd" ];
-  fileSystems."/mnt/files".options = [ "compress=zstd" ];
+  fileSystems."/".options = ["compress=zstd"];
+  fileSystems."/mnt/files".options = ["compress=zstd"];
 
   # Asus linux
   services.asusd.enable = true;
