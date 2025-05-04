@@ -6,6 +6,7 @@
     ./plugins/auto-session.nix
     ./plugins/colorscheme.nix
     ./plugins/default.nix
+    ./plugins/fzf.nix
   ];
 
   vim = {
