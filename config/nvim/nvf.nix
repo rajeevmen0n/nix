@@ -8,6 +8,7 @@
     ./plugins/default.nix
     ./plugins/fzf.nix
     ./plugins/git.nix
+    ./plugins/lsp.nix
     ./plugins/mini.nix
     ./plugins/nvim-cmp.nix
     ./plugins/scope-nvim.nix
