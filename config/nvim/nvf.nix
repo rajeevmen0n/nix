@@ -2,8 +2,10 @@
   imports = [
     ./core/keymaps.nix
     ./core/options.nix
-    ./plugins/default.nix
+
+    ./plugins/auto-session.nix
     ./plugins/colorscheme.nix
+    ./plugins/default.nix
   ];
 
   vim = {
