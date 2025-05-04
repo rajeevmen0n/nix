@@ -1,6 +1,5 @@
 {
   pkgs,
-  lib,
   ...
 }: {
   imports = [
@@ -37,9 +36,6 @@
   services.asusd.enable = true;
   services.asusd.enableUserService = true;
   services.supergfxd.enable = true;
-
-  # Disable gnome-remote-desktop, because it prevents nvidia GPU from sleeping.
-  systemd.services.gnome-remote-desktop.wantedBy = lib.mkForce [];
 
   environment.sessionVariables = {
     # First the iGPU, then the dGPU
