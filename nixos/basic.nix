@@ -54,6 +54,8 @@
     git
     wget
     vim
+    p7zip
+    unzip
   ];
 
   # Add ZSH to /etc/shells
