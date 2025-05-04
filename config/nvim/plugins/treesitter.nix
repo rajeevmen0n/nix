@@ -12,19 +12,24 @@
       c
       cmake
       cpp
+      css
       csv
       diff
       dockerfile
       go
+      html
       json
       lua
       make
       ninja
+      nix
       python
       regex
+      rust
       ssh_config
       tmux
       vim
+      toml
       xml
       yaml
     ];
