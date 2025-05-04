@@ -7,7 +7,7 @@
 
   vim = {
 
-    lsp.lspconfig = {
+    lsp = {
       enable = true;
     };
 
