@@ -8,6 +8,10 @@
       url = "github:nix-community/home-manager/release-24.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote/v0.4.2";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
     nvf.url = "github:notashelf/nvf";
   };
 
@@ -44,12 +48,14 @@
           host,
           nixpkgs,
           home-manager,
-          modules ? [ ]
+          modules ? [ ],
+          overlays ? [ ],
         }:
         nixpkgs.lib.nixosSystem {
           system = host.arch;
           modules = [
             ./hosts/${host.dir}/configuration.nix
+            { nixpkgs.overlays = overlays; }
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
@@ -57,6 +63,19 @@
             }
           ] ++ modules;
         };
+
+      unstablePkgs = import inputs.nixpkgs-unstable {
+        system = "x86_64-linux";
+        config = {
+          allowUnfree = true;
+        };
+      };
+
+      sbctlOverlay = (
+        final: prev: {
+          sbctl = unstablePkgs.sbctl;
+        }
+      );
 
     in
 
@@ -73,9 +92,15 @@
         host = hosts.laptop-nixos;
         nixpkgs = inputs.nixpkgs;
         home-manager = inputs.home-manager;
-        modules = [({pkgs, ...}: {
-          environment.systemPackages = [self.packages.${hosts.laptop-nixos.arch}.neovim];
-        })];
+        modules = [
+          inputs.lanzaboote.nixosModules.lanzaboote
+          ({pkgs, ...}: {
+            environment.systemPackages = [
+              self.packages.${hosts.laptop-nixos.arch}.neovim
+            ];
+          })
+        ];
+        overlays = [ sbctlOverlay ];
       };
 
       # Sample config for non nix-os systems using home manager
