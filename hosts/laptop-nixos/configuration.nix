@@ -10,6 +10,7 @@
     ../../nixos/basic.nix
     ../../nixos/gaming.nix
     ../../nixos/gnome.nix
+    ../../nixos/hyprland.nix
     ../../nixos/ios.nix
     ../../nixos/media.nix
     ../../nixos/nvidia.nix
