@@ -71,11 +71,10 @@
         };
       };
 
-      sbctlOverlay = (
-        final: prev: {
-          sbctl = unstablePkgs.sbctl;
-        }
-      );
+      mkOverlayFromUnstable = pkgNames:
+        map (name: (final: prev: {
+          ${name} = unstablePkgs.${name};
+      })) pkgNames;
 
     in
 
@@ -100,7 +99,11 @@
             ];
           })
         ];
-        overlays = [ sbctlOverlay ];
+        overlays = mkOverlayFromUnstable [
+          "sbctl"
+          "asusctl"
+          "supergfxctl"
+        ];
       };
 
       # Sample config for non nix-os systems using home manager
