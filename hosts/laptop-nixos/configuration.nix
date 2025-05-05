@@ -23,7 +23,8 @@
   boot.blacklistedKernelModules = ["ucsi_acpi"];
 
   # WiFi card doesn't work on the stable kernel
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  # boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = pkgs.linuxPackagesFor (pkgs.callPackage ./rog-kernel.nix {});
 
   # Enable OpenGL
   hardware.graphics = {
