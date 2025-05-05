@@ -14,6 +14,7 @@
     ../../nixos/ios.nix
     ../../nixos/media.nix
     ../../nixos/nvidia.nix
+    ../../nixos/plymouth.nix
     ../../nixos/secureboot.nix
     ../../nixos/users.nix
   ];
