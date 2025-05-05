@@ -7,6 +7,7 @@ in
     ../../home/dev.nix
     ../../home/cli/btop.nix
     ../../home/gui/hyprland.nix
+    ../../home/gui/gtk.nix
   ];
 
   home = {
