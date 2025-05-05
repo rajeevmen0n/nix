@@ -8,6 +8,7 @@
       dconf
       xwayland
       wofi
+      brightnessctl
     ];
   };
 
