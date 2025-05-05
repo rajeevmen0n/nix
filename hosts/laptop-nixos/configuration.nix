@@ -37,11 +37,5 @@
   services.asusd.enableUserService = true;
   services.supergfxd.enable = true;
 
-  environment.sessionVariables = {
-    # First the iGPU, then the dGPU
-    KWIN_DRM_DEVICES = "/dev/dri/card1:/dev/dri/card0";
-    COSMIC_RENDER_DEVICE = "/dev/dri/renderD129";
-  };
-
   system.stateVersion = "24.11";
 }
