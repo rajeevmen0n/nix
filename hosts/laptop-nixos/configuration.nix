@@ -9,11 +9,12 @@
     ../../nixos/audio.nix
     ../../nixos/basic.nix
     ../../nixos/gaming.nix
-    ../../nixos/gnome.nix
+    # ../../nixos/gnome.nix
     ../../nixos/hyprland.nix
     ../../nixos/ios.nix
     ../../nixos/media.nix
     ../../nixos/nvidia.nix
+    ../../nixos/plasma.nix
     ../../nixos/plymouth.nix
     ../../nixos/secureboot.nix
     ../../nixos/users.nix
@@ -30,6 +31,10 @@
   hardware.graphics = {
     enable = true;
     enable32Bit = true;
+  };
+
+  environment.sessionVariables = {
+    KWIN_DRM_DEVICES = "/dev/dri/card1:/dev/dri/card0";
   };
 
   # Asus linux
