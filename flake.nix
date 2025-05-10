@@ -24,24 +24,24 @@
     let
       hosts = import ./config/hosts.nix;
 
-      mkHomeConfigurations =
-        {
-          host,
-          nixpkgs,
-          home-manager,
-          modules ? [ ],
-        }:
-        home-manager.lib.homeManagerConfiguration {
-          pkgs = import nixpkgs {
-            system = host.arch;
-            config = {
-              allowUnfree = true;
-            };
-          };
-          modules = [
-            ./hosts/${host.dir}/home.nix
-          ] ++ modules;
-        };
+      # mkHomeConfigurations =
+      #   {
+      #     host,
+      #     nixpkgs,
+      #     home-manager,
+      #     modules ? [ ],
+      #   }:
+      #   home-manager.lib.homeManagerConfiguration {
+      #     pkgs = import nixpkgs {
+      #       system = host.arch;
+      #       config = {
+      #         allowUnfree = true;
+      #       };
+      #     };
+      #     modules = [
+      #       ./hosts/${host.dir}/home.nix
+      #     ] ++ modules;
+      #   };
 
       mkNixOSConfigurations =
         {
@@ -64,42 +64,35 @@
           ] ++ modules;
         };
 
-      unstablePkgs = import inputs.nixpkgs-unstable {
-        system = "x86_64-linux";
-        config = {
-          allowUnfree = true;
-        };
-      };
-
       mkOverlayFromUnstable = pkgNames:
         map (name: (final: prev: {
-          ${name} = unstablePkgs.${name};
+          ${name} = (import inputs.nixpkgs-unstable {
+              inherit (final) system;
+              config = {
+                allowUnfree = true;
+              };
+          }).${name};
       })) pkgNames;
+
+      neovimOverlay = (
+        final: prev: {
+          neovimWrapped = (inputs.nvf.lib.neovimConfiguration {
+            pkgs = inputs.nixpkgs-unstable.legacyPackages.${final.system};
+            modules = [ ./config/nvim/nvf.nix ];
+          }).neovim;
+        }
+      );
 
     in
 
     {
-      # Neovim setup
-      packages.x86_64-linux.neovim = 
-        (inputs.nvf.lib.neovimConfiguration {
-          pkgs = inputs.nixpkgs-unstable.legacyPackages.x86_64-linux;
-          modules = [ ./config/nvim/nvf.nix ];
-        }).neovim;
-
       # Laptop NixOS config
       nixosConfigurations."${hosts.laptop-nixos.hostname}" = mkNixOSConfigurations {
         host = hosts.laptop-nixos;
         nixpkgs = inputs.nixpkgs;
         home-manager = inputs.home-manager;
-        modules = [
-          inputs.lanzaboote.nixosModules.lanzaboote
-          ({pkgs, ...}: {
-            environment.systemPackages = [
-              self.packages.${hosts.laptop-nixos.arch}.neovim
-            ];
-          })
-        ];
-        overlays = mkOverlayFromUnstable [
+        modules = [ inputs.lanzaboote.nixosModules.lanzaboote ];
+        overlays = [ neovimOverlay ] ++ mkOverlayFromUnstable [
           "sbctl"
           "asusctl"
           "supergfxctl"
