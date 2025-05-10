@@ -13,10 +13,10 @@
       "$menu" = "wofi --show drun";
 
       # Environment variables
-      env = [
-        "XCURSOR_SIZE,24"
-        "XCURSOR_THEME,Bibata-Modern-Classic"
-      ];
+      # env = [
+      #   "XCURSOR_SIZE,24"
+      #   "XCURSOR_THEME,Bibata-Modern-Classic"
+      # ];
 
       # Input
       input = {
