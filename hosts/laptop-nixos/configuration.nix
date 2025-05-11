@@ -39,6 +39,8 @@
 
   environment.sessionVariables = {
     KWIN_DRM_DEVICES = "/dev/dri/card1:/dev/dri/card0";
+    AQ_DRM_DEVICES = "/dev/dri/card1:/dev/dri/card0";
+    AQ_NO_ATOMIC = 1;
   };
 
   # Asus linux
