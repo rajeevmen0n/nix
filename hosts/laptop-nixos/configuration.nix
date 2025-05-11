@@ -5,19 +5,23 @@
   imports = [
     ./hardware-configuration.nix
     ./networking.nix
-    ../../nixos/amdgpu.nix
-    ../../nixos/audio.nix
+
     ../../nixos/basic.nix
     ../../nixos/gaming.nix
-    # ../../nixos/gnome.nix
-    ../../nixos/hyprland.nix
-    ../../nixos/ios.nix
     ../../nixos/media.nix
-    ../../nixos/nvidia.nix
-    ../../nixos/plasma.nix
-    ../../nixos/plymouth.nix
-    ../../nixos/secureboot.nix
-    ../../nixos/users.nix
+
+    ../../nixos/desktop/hyprland.nix
+    ../../nixos/desktop/plasma.nix
+    ../../nixos/desktop/sddm.nix
+
+    ../../nixos/hardware/amdgpu.nix
+    ../../nixos/hardware/audio.nix
+    ../../nixos/hardware/nvidia.nix
+
+    ../../nixos/system/ios.nix
+    ../../nixos/system/plymouth.nix
+    ../../nixos/system/secureboot.nix
+    ../../nixos/system/users.nix
   ];
 
   # Known issue, kernel freeze when type c port is used
