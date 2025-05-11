@@ -5,6 +5,7 @@
   imports = [
     ./hardware-configuration.nix
     ./networking.nix
+    ./gpu-env.nix
 
     ../../nixos/basic.nix
     ../../nixos/gaming.nix
@@ -35,10 +36,6 @@
   hardware.graphics = {
     enable = true;
     enable32Bit = true;
-  };
-
-  environment.sessionVariables = {
-    KWIN_DRM_DEVICES = "/dev/dri/card1:/dev/dri/card0";
   };
 
   # Asus linux
