@@ -9,7 +9,7 @@
 
       # Programs
       "$terminal" = "ghostty";
-      "$fileManager" = "nautilus";
+      "$fileManager" = "dolphin";
       "$menu" = "wofi --show drun";
 
       # Environment variables
