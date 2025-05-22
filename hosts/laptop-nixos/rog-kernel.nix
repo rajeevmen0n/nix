@@ -5,15 +5,20 @@
   buildLinux,
   ...
 } @ args: let
-  version = "6.14.2";
+  version = "6.14.5";
   major = lib.versions.major version;
   majorMinor = lib.versions.majorMinor version;
 
-  patches-src = fetchFromGitHub {
+  kernelSrc = fetchurl {
+    url = "mirror://kernel/linux/kernel/v${major}.x/linux-${version}.tar.xz";
+    hash = "sha256-KCB+xSu+qjUHAQrv+UT0QvfZ8isoa3nK9F7G3xsk9Ak=";
+  };
+
+  patchesSrc = fetchFromGitHub {
     owner = "flukejones";
     repo = "cachyos-kernel-patches";
-    rev = "4df02d6037a2ea9ac1dc67f80db59798117694f1";
-    hash = "sha256-VM7JHbkYpjQGmVcnrshfVwKWfkA1rpt8e4rQZHIr9pY=";
+    rev = "a01af6a9d02d4e274cdea273b63036467ca730be";
+    hash = "sha256-Noaxr1ncE3hV9bxgleERSLXMG3ug5SBlZK3eQOQP9hE=";
   };
 in
   buildLinux (
@@ -22,54 +27,11 @@ in
       inherit version;
       pname = "linux-rog";
       modDirVersion = version;
-      src = fetchurl {
-        url = "mirror://kernel/linux/kernel/v${major}.x/linux-${version}.tar.xz";
-        hash = "sha256-xcaCo1TqMZATk1elfTSnnlw3IhrOgjqTjhARa1d6Lhs=";
-      };
+      src = kernelSrc;
       kernelPatches = [
         {
-          name = "amd-pstate";
-          patch = "${patches-src}/${majorMinor}/0001-amd-pstate.patch";
-        }
-        {
-          name = "amd-tlb-broadcast";
-          patch = "${patches-src}/${majorMinor}/0002-amd-tlb-broadcast.patch";
-        }
-        {
-          name = "asus";
-          patch = "${patches-src}/${majorMinor}/0003-asus.patch";
-        }
-        {
-          name = "bbr3";
-          patch = "${patches-src}/${majorMinor}/0004-bbr3.patch";
-        }
-        {
-          name = "cachy";
-          patch = "${patches-src}/${majorMinor}/0005-cachy.patch";
-        }
-        {
-          name = "crypto";
-          patch = "${patches-src}/${majorMinor}/0006-crypto.patch";
-        }
-        {
-          name = "fixes";
-          patch = "${patches-src}/${majorMinor}/0007-fixes.patch";
-        }
-        {
-          name = "t2";
-          patch = "${patches-src}/${majorMinor}/0008-t2.patch";
-        }
-        {
-          name = "zstd";
-          patch = "${patches-src}/${majorMinor}/0009-zstd.patch";
-        }
-        {
-          name = "zotac-zone";
-          patch = "${patches-src}/${majorMinor}/0010-zotac-zone.patch";
-        }
-        {
-          name = "bore-cachy";
-          patch = "${patches-src}/${majorMinor}/sched/0001-bore-cachy.patch";
+          name = "cachy-os-patches";
+          patch = "${patchesSrc}/${majorMinor}/all/0001-cachyos-base-all.patch";
         }
       ];
       structuredExtraConfig = with lib.kernel; {
