@@ -34,12 +34,13 @@
 
       bind = [
         # Basic keybinds
-        "$mod, T, exec, ghostty"
+        "$mod, RETURN, exec, $terminal"
         "$mod, C, killactive"
         "$mod, M, exit"
         "$mod, E, exec, $fileManager"
         "$mod, V, toggleFloating"
         "$mod, SPACE, exec, $menu"
+        "$mod, Tab, workspace, previous"
 
         # Move focus
         "$mod, h, moveFocus, l"
