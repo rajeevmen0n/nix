@@ -6,7 +6,7 @@ in
   imports = [
     ../../home/dev.nix
     ../../home/cli/btop.nix
-    ../../home/gui/hyprland.nix
+    ../../home/desktop/hyprland.nix
   ];
 
   home = {
