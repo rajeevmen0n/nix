@@ -1,4 +1,10 @@
 {
+  imports = [
+    ./mako.nix
+    ./pywal.nix
+    ./waybar.nix
+  ];
+
   wayland.windowManager.hyprland = {
     enable = true;
     systemd.enable = false;
