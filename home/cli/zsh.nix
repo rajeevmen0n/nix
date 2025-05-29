@@ -17,7 +17,7 @@
       searchDownKey = "$key[Down]";
     };
 
-    initExtra = ''
+    initContent = ''
       history-substring-search-up-prefixed(){
         HISTORY_SUBSTRING_SEARCH_ENSURE_UNIQUE=1 HISTORY_SUBSTRING_SEARCH_PREFIXED=1 history-substring-search-up
       }
