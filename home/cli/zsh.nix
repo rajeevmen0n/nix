@@ -19,10 +19,10 @@
 
     initExtra = ''
       history-substring-search-up-prefixed(){
-        HISTORY_SUBSTRING_SEARCH_PREFIXED=1 history-substring-search-up
+        HISTORY_SUBSTRING_SEARCH_ENSURE_UNIQUE=1 HISTORY_SUBSTRING_SEARCH_PREFIXED=1 history-substring-search-up
       }
       history-substring-search-down-prefixed(){
-        HISTORY_SUBSTRING_SEARCH_PREFIXED=1 history-substring-search-down
+        HISTORY_SUBSTRING_SEARCH_ENSURE_UNIQUE=1 HISTORY_SUBSTRING_SEARCH_PREFIXED=1 history-substring-search-down
       }
 
       zle -N history-substring-search-up-prefixed
