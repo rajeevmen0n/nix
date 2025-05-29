@@ -51,10 +51,22 @@
     enable32Bit = true;
   };
 
+  # Get unstable version of supergfxctl
+  nixpkgs.overlays = [
+    (final: prev: {
+      supergfxctl = prev.unstable.supergfxctl;
+    })
+  ];
+
   # Asus linux
-  services.asusd.enable = true;
-  services.asusd.enableUserService = true;
-  services.supergfxd.enable = true;
+  services = {
+    asusd = {
+      enable = true;
+      enableUserService = true;
+      package = pkgs.unstable.asusctl;
+    };
+    supergfxd.enable = true;
+  };
 
   system.stateVersion = "24.11";
 }

@@ -74,6 +74,13 @@
           }).${name};
       })) pkgNames;
 
+      unstableOverlay = final: prev: {
+        unstable = import inputs.nixpkgs-unstable {
+          system = final.system;
+          config.allowUnfree = true;
+        };
+      };
+
       neovimOverlay = (
         final: prev: {
           neovimWrapped = (inputs.nvf.lib.neovimConfiguration {
@@ -92,11 +99,7 @@
         nixpkgs = inputs.nixpkgs;
         home-manager = inputs.home-manager;
         modules = [ inputs.lanzaboote.nixosModules.lanzaboote ];
-        overlays = [ neovimOverlay ] ++ mkOverlayFromUnstable [
-          "sbctl"
-          "asusctl"
-          "supergfxctl"
-        ];
+        overlays = [ neovimOverlay unstableOverlay ];
       };
 
       # Sample config for non nix-os systems using home manager
