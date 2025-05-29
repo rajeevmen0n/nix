@@ -12,7 +12,7 @@ in
   home = {
     username = users.default.username;
     homeDirectory = "/home/${users.default.username}";
-    stateVersion = "24.11";
+    stateVersion = "25.05";
 
     packages = with pkgs; [
       google-chrome
