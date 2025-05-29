@@ -1,4 +1,6 @@
 {
+  config,
+  lib,
   pkgs,
   ...
 }: {
@@ -31,6 +33,17 @@
   # WiFi card doesn't work on the stable kernel
   # boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.kernelPackages = pkgs.linuxPackagesFor (pkgs.callPackage ./rog-kernel.nix {});
+
+  # Use custom nvidia version
+  hardware.nvidia.package = lib.mkForce(
+    config.boot.kernelPackages.nvidiaPackages.mkDriver {
+      version = "570.153.02";
+      sha256_64bit = "sha256-FIiG5PaVdvqPpnFA5uXdblH5Cy7HSmXxp6czTfpd4bY=";
+      openSha256 = "sha256-2DpY3rgQjYFuPfTY4U/5TcrvNqsWWnsOSX0f2TfVgTs=";
+      settingsSha256 = "sha256-5m6caud68Owy4WNqxlIQPXgEmbTe4kZV2vZyTWHWe+M=";
+      persistencedSha256 = lib.fakeSha256;
+    }
+  );
 
   # Enable OpenGL
   hardware.graphics = {
