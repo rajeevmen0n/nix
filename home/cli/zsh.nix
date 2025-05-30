@@ -33,6 +33,8 @@
       bindkey ";5D" backward-word
       bindkey ";5A" history-substring-search-up-prefixed
       bindkey ";5B" history-substring-search-down-prefixed
+
+      (cat ~/.cache/wal/sequences &)
     '';
 
     shellAliases = {

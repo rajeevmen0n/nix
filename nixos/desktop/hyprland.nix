@@ -7,7 +7,6 @@
       xdg-desktop-portal-hyprland
       dconf
       xwayland
-      wofi
       brightnessctl
     ];
   };

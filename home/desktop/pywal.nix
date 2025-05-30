@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   home.packages = with pkgs; [
-    pywal
+    pywal16
     # pywalfox-native
   ];
 
