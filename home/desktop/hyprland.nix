@@ -3,6 +3,8 @@
     ./mako.nix
     ./pywal.nix
     ./waybar.nix
+    ./wofi.nix
+    ./swww.nix
   ];
 
   wayland.windowManager.hyprland = {
@@ -16,7 +18,7 @@
       # Programs
       "$terminal" = "ghostty";
       "$fileManager" = "dolphin";
-      "$menu" = "wofi --show drun";
+      "$menu" = "pkill wofi || wofi --show drun";
 
       # Environment variables
       # env = [
@@ -41,12 +43,13 @@
       bind = [
         # Basic keybinds
         "$mod, RETURN, exec, $terminal"
-        "$mod, C, killactive"
+        "$mod, X, killactive"
         "$mod, M, exit"
         "$mod, E, exec, $fileManager"
-        "$mod, V, toggleFloating"
+        "$mod, F, toggleFloating"
         "$mod, SPACE, exec, $menu"
         "$mod, Tab, workspace, previous"
+        "$mod, B, exec ,pkill -USR1 waybar"
 
         # Move focus
         "$mod, h, moveFocus, l"
