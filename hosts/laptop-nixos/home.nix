@@ -7,6 +7,8 @@ in
     ../../home/dev.nix
     ../../home/cli/btop.nix
     ../../home/desktop/hyprland.nix
+    ../../home/desktop/gtk.nix
+    ../../home/desktop/qt.nix
   ];
 
   home = {

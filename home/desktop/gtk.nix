@@ -2,26 +2,25 @@
 {
   home.pointerCursor = {
     gtk.enable = true;
-    package = pkgs.bibata-cursors;
-    name = "Bibata-Modern-Classic";
-    size = 16;
+    package = pkgs.kdePackages.breeze-icons;
+    name = "breeze_cursors";
+    size = 24;
   };
 
   gtk = {
     enable = true;
     theme = {
-      package = pkgs.flat-remix-gtk;
-      name = "Flat-Remix-GTK-Blue-Darkest";
+      package = pkgs.kdePackages.breeze-gtk;
+      name = "Breeze-Dark";
     };
 
     iconTheme = {
-      package = pkgs.flat-remix-icon-theme;
-      name = "Flat-Remix-Blue-Dark";
-    };
-
-    font = {
-      name = "Sans";
-      size = 11;
+      package = pkgs.kdePackages.breeze-icons;
+      name = "breeze-dark";
     };
   };
+
+  home.packages = with pkgs; [
+    nwg-look
+  ];
 }
