@@ -21,7 +21,6 @@ in {
           "cpu"
           "memory"
           "battery"
-          "network"
           "custom/swaync"
         ];
 
@@ -70,20 +69,6 @@ in {
         "disk" = {
           format = " {free}";
           tooltip = true;
-        };
-
-        "network" = {
-          format-icons = [
-            "󰤯"
-            "󰤟"
-            "󰤢"
-            "󰤥"
-            "󰤨"
-          ];
-          format-ethernet = "󰈁";
-          format-wifi = "{icon}";
-          format-disconnected = "󰤮";
-          tooltip = false;
         };
 
         "tray" = {
