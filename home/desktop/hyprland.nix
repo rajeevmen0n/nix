@@ -1,9 +1,9 @@
 {
   imports = [
-    ./mako.nix
     ./pywal.nix
     ./waybar.nix
     ./wofi.nix
+    ./swaync.nix
     ./swww.nix
   ];
 

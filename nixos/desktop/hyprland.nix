@@ -8,6 +8,7 @@
       dconf
       xwayland
       brightnessctl
+      networkmanagerapplet
     ];
   };
 
@@ -15,4 +16,6 @@
     enable = true;
     withUWSM = true;
   };
+
+  services.blueman.enable = true;
 }
