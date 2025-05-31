@@ -100,6 +100,11 @@
         "maxsize 1 1, class:^(xwaylandvideobridge)$"
         "noblur, class:^(xwaylandvideobridge)$"
         "nofocus, class:^(xwaylandvideobridge)$"
+
+        "float, class:\.blueman-manager\-wrapped"
+        "float, class:nm\-.*"
+        "float, class:rog\-control\-center"
+        "float, class:com\.saivert\.pwvucontrol"
       ];
     };
   };
