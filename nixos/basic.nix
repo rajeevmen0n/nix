@@ -53,6 +53,7 @@
     vim
     p7zip
     unzip
+    sbctl
   ];
 
   # Add ZSH to /etc/shells

@@ -15,7 +15,7 @@
 
     ../../nixos/desktop/hyprland.nix
     ../../nixos/desktop/plasma.nix
-    ../../nixos/desktop/sddm.nix
+    ../../nixos/desktop/greetd.nix
 
     ../../nixos/hardware/amdgpu.nix
     ../../nixos/hardware/audio.nix
@@ -51,19 +51,11 @@
     enable32Bit = true;
   };
 
-  # Get unstable version of supergfxctl
-  nixpkgs.overlays = [
-    (final: prev: {
-      supergfxctl = prev.unstable.supergfxctl;
-    })
-  ];
-
   # Asus linux
   services = {
     asusd = {
       enable = true;
       enableUserService = true;
-      package = pkgs.unstable.asusctl;
     };
     supergfxd.enable = true;
   };
