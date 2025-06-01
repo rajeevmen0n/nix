@@ -32,13 +32,12 @@ let
   };
 in {
   home.packages = with pkgs; [
-    kdePackages.qtstyleplugin-kvantum
     fluent-kde
   ];
 
   qt = {
     enable = true;
-    platformTheme.name = "kde";
+    platformTheme.name = "qt5ct";
     style.name = "kvantum";
   };
 
