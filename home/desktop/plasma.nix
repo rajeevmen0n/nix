@@ -2,14 +2,23 @@
   programs.plasma = {
     enable = true;
 
-    input.touchpads = [
-      {
-        name = "ASUF1209:00 2808:0219 Touchpad";
-        enable = true;
-        naturalScroll = false;
-        vendorId = "2808";
-        productId = "0219";
-      }
-    ];
+    workspace = {
+      clickItemTo = "select";
+      
+      # Cursor theme
+      cursor = {
+        theme = "breeze_cursors";
+        size = 24;
+      };
+
+      # Fluent dark theme
+      iconTheme = "breeze-dark";
+      splashScreen.theme = "org.kde.breeze.desktop";
+      theme = "FluentDark"; 
+      windowDecorations = {
+        library = "org.kde.kwin.aurorae";
+        theme = "__aurorae__svg__Fluent-dark";
+      };
+    };
   };
 }

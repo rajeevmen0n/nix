@@ -13,6 +13,11 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     nvf.url = "github:notashelf/nvf";
+    plasma-manager = {
+      url = "github:nix-community/plasma-manager";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.home-manager.follows = "home-manager";
+    };
   };
 
   outputs =
@@ -49,6 +54,7 @@
           nixpkgs,
           home-manager,
           modules ? [ ],
+          homeManagerModules ? [ ],
           overlays ? [ ],
         }:
         nixpkgs.lib.nixosSystem {
@@ -60,6 +66,7 @@
             {
               home-manager.useGlobalPkgs = true;
               home-manager.users."${host.user.username}" = import ./hosts/${host.dir}/home.nix;
+              home-manager.sharedModules = homeManagerModules;
             }
           ] ++ modules;
         };
@@ -99,6 +106,7 @@
         nixpkgs = inputs.nixpkgs;
         home-manager = inputs.home-manager;
         modules = [ inputs.lanzaboote.nixosModules.lanzaboote ];
+        homeManagerModules = [ inputs.plasma-manager.homeManagerModules.plasma-manager ];
         overlays = [ neovimOverlay unstableOverlay ];
       };
 

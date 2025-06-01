@@ -4,10 +4,12 @@ let
 in
 {
   imports = [
+    ./desktop.nix
     ../../home/dev.nix
     ../../home/cli/btop.nix
     ../../home/desktop/hyprland.nix
     ../../home/desktop/gtk.nix
+    ../../home/desktop/plasma.nix
     ../../home/desktop/qt.nix
   ];
 
