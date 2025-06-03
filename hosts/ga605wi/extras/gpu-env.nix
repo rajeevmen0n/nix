@@ -1,6 +1,6 @@
 { pkgs, ... }:
 let
-  users = import ../../config/users.nix;
+  users = import ../../../config/users.nix;
   home = "/home/${users.default.username}";
 in 
 {

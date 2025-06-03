@@ -1,6 +1,6 @@
 { pkgs, ... }:
 let
-  users = import ../../config/users.nix;
+  users = import ../../../config/users.nix;
   changeWallpaper = pkgs.writeShellScriptBin "change-wallpaper" ''
     if [ -n "$1" ]; then
       WALLPAPER="$1"

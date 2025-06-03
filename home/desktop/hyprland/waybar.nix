@@ -1,5 +1,5 @@
 {pkgs, ...}: let
-  users = import ../../config/users.nix;
+  users = import ../../../config/users.nix;
 in {
   programs.waybar = {
     enable = true;
@@ -154,6 +154,6 @@ in {
   };
 
   xdg.configFile = {
-    "waybar/waybar.css".source = ../../config/waybar/waybar.css;
+    "waybar/waybar.css".source = ../../../config/waybar/waybar.css;
   };
 }

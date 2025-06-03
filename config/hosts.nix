@@ -2,9 +2,9 @@ let
   users = import ./users.nix;
 in
 {
-  laptop-nixos = {
+  ga605wi = {
     hostname = "matrix";
-    dir = "laptop-nixos";
+    dir = "ga605wi";
     arch = "x86_64-linux";
     user = users.default;
   };
