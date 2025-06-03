@@ -14,10 +14,10 @@
       # Fluent dark theme
       iconTheme = "breeze-dark";
       splashScreen.theme = "org.kde.breeze.desktop";
-      theme = "FluentDark"; 
+      theme = "Fluent-round-dark"; 
       windowDecorations = {
         library = "org.kde.kwin.aurorae";
-        theme = "__aurorae__svg__Fluent-dark";
+        theme = "__aurorae__svg__Fluent-round-dark";
       };
     };
   };
