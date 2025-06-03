@@ -12,6 +12,8 @@
     };
   };
 
+  programs.noisetorch.enable = true;
+
   environment.systemPackages = with pkgs; [
     pwvucontrol
   ];

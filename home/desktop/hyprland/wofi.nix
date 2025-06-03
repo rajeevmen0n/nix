@@ -1,5 +1,5 @@
 let
-  users = import ../../config/users.nix;
+  users = import ../../../config/users.nix;
 in {
   programs.wofi = {
     enable = true;

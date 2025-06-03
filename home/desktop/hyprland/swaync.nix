@@ -1,5 +1,5 @@
 let
-  users = import ../../config/users.nix;
+  users = import ../../../config/users.nix;
 in {
   services.swaync = {
     enable = true;
@@ -103,7 +103,7 @@ in {
   };
 
   xdg.configFile = {
-    "swaync/notifications.css".source = ../../config/swaync/notifications.css;
-    "swaync/control-center.css".source = ../../config/swaync/control-center.css;
+    "swaync/notifications.css".source = ../../../config/swaync/notifications.css;
+    "swaync/control-center.css".source = ../../../config/swaync/control-center.css;
   };
 }

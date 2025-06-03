@@ -51,9 +51,11 @@
     git
     wget
     vim
+    pciutils
     p7zip
-    unzip
     sbctl
+    tree
+    unzip
   ];
 
   # Add ZSH to /etc/shells

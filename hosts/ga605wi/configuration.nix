@@ -3,15 +3,15 @@
   lib,
   pkgs,
   ...
-}: {
+}: let
+  hosts = import ../../config/hosts.nix;
+in {
   imports = [
+    ./extras/gpu-env.nix
     ./hardware-configuration.nix
-    ./networking.nix
-    ./gpu-env.nix
 
     ../../nixos/basic.nix
     ../../nixos/gaming.nix
-    ../../nixos/media.nix
 
     ../../nixos/desktop/hyprland.nix
     ../../nixos/desktop/plasma.nix
@@ -27,12 +27,15 @@
     ../../nixos/system/users.nix
   ];
 
+  # Hostname
+  networking.hostName = hosts.ga605wi.hostname;
+
   # Known issue, kernel freeze when type c port is used
   boot.blacklistedKernelModules = ["ucsi_acpi"];
 
   # WiFi card doesn't work on the stable kernel
   # boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.kernelPackages = pkgs.linuxPackagesFor (pkgs.callPackage ./rog-kernel.nix {});
+  boot.kernelPackages = pkgs.linuxPackagesFor (pkgs.callPackage ./extras/rog-kernel.nix {});
 
   # Use custom nvidia version
   hardware.nvidia.package = lib.mkForce(

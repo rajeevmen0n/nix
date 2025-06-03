@@ -101,8 +101,8 @@
 
     {
       # Laptop NixOS config
-      nixosConfigurations."${hosts.laptop-nixos.hostname}" = mkNixOSConfigurations {
-        host = hosts.laptop-nixos;
+      nixosConfigurations."${hosts.ga605wi.hostname}" = mkNixOSConfigurations {
+        host = hosts.ga605wi;
         nixpkgs = inputs.nixpkgs;
         home-manager = inputs.home-manager;
         modules = [ inputs.lanzaboote.nixosModules.lanzaboote ];
