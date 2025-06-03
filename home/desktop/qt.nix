@@ -42,11 +42,11 @@ in {
   };
 
   xdg.configFile = {
-    "Kvantum/FluentDark/FluentDark.kvconfig".source = "${fluent-kde}/share/Kvantum/Fluent/FluentDark.kvconfig";
-    "Kvantum/FluentDark/FluentDark.svg".source = "${fluent-kde}/share/Kvantum/Fluent/FluentDark.svg";
+    "Kvantum/Fluent-round/Fluent-roundDark.kvconfig".source = "${fluent-kde}/share/Kvantum/Fluent-round/Fluent-roundDark.kvconfig";
+    "Kvantum/Fluent-round/Fluent-roundDark.svg".source = "${fluent-kde}/share/Kvantum/Fluent-round/Fluent-roundDark.svg";
     "Kvantum/kvantum.kvconfig".text = ''
       [General]
-      theme=FluentDark
+      theme=Fluent-roundDark
     '';
   };
 }
