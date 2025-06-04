@@ -1,4 +1,4 @@
-let
+{ lib, ... }: let
   users = import ../../../config/users.nix;
 in {
   services.swaync = {
@@ -105,5 +105,9 @@ in {
   xdg.configFile = {
     "swaync/notifications.css".source = ../../../config/swaync/notifications.css;
     "swaync/control-center.css".source = ../../../config/swaync/control-center.css;
+  };
+
+  systemd.user.services.swaync.Unit = {
+    ConditionEnvironment = lib.mkForce "XDG_CURRENT_DESKTOP=Hyprland";
   };
 }

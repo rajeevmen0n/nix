@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 let
   users = import ../../../config/users.nix;
   changeWallpaper = pkgs.writeShellScriptBin "change-wallpaper" ''
@@ -18,4 +18,8 @@ in
   home.packages = [
     changeWallpaper
   ];
+
+  systemd.user.services.swww.Unit = {
+    ConditionEnvironment = lib.mkForce "XDG_CURRENT_DESKTOP=Hyprland";
+  };
 }
