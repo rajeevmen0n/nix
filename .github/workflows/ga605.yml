@@ -1,0 +1,45 @@
+name: Build and Cache G16 Nix Config
+
+on:
+  workflow_dispatch:
+
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - 'README.md'
+      - 'install.sh'
+      - 'uname.sh'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Free Disk Space
+        uses: jlumbroso/free-disk-space@main
+        with:
+          tool-cache: true
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Nix
+        uses: cachix/install-nix-action@v25
+        with:
+          nix_path: nixpkgs=channel:nixos-unstable
+
+      - name: Authenticate to Cachix
+        uses: cachix/cachix-action@v14
+        with:
+          name: g16-nixos
+          authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+
+
+      - name: Build kernel
+        run: |
+          nix build .#nixosConfigurations.matrix.config.system.build.toplevel
+      
+      - name: Push to Cachix
+        run: |
+          cachix push g16-nixos result
