@@ -21,6 +21,7 @@ in {
     ../../nixos/hardware/audio.nix
     ../../nixos/hardware/nvidia.nix
 
+    ../../nixos/system/cachix.nix
     ../../nixos/system/ios.nix
     ../../nixos/system/plymouth.nix
     ../../nixos/system/secureboot.nix

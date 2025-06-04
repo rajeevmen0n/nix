@@ -49,13 +49,13 @@
   # Basic tools
   environment.systemPackages = with pkgs; [
     git
-    wget
-    vim
     pciutils
     p7zip
     sbctl
     tree
     unzip
+    vim
+    wget
   ];
 
   # Add ZSH to /etc/shells
