@@ -1,4 +1,4 @@
-{pkgs, ...}: let
+{pkgs, lib, ...}: let
   users = import ../../../config/users.nix;
 in {
   programs.waybar = {
@@ -155,5 +155,9 @@ in {
 
   xdg.configFile = {
     "waybar/waybar.css".source = ../../../config/waybar/waybar.css;
+  };
+
+  systemd.user.services.waybar.Unit = {
+    ConditionEnvironment = lib.mkForce "XDG_CURRENT_DESKTOP=Hyprland";
   };
 }
