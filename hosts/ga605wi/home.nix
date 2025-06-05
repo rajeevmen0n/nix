@@ -4,6 +4,8 @@ let
 in
 {
   imports = [
+    ../../home/apps/media.nix
+    ../../home/apps/minecraft.nix
     ../../home/dev.nix
     ../../home/cli/btop.nix
     ../../home/desktop/gtk.nix
@@ -11,7 +13,6 @@ in
     ../../home/desktop/plasma/kwin-forceblur.nix
     ../../home/desktop/plasma/plasma.nix
     ../../home/desktop/qt.nix
-    ../../home/apps/media.nix
   ];
 
   home = {

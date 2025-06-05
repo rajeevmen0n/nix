@@ -1,4 +1,4 @@
-# 🧊 My NixOS Configuration
+# 🧊 My Nix  Configuration
 
 ![Build Status](https://github.com/rajeevmen0n/nix/actions/workflows/ga605.yml/badge.svg)
 
@@ -19,13 +19,13 @@ Declarative, reproducible system configuration for my personal machines running 
 - **Hyprland (Wayland)**
   - Pywal-based dynamic theming
   - Custom Waybar and Wofi configs
-  - Swaync with custom CSS for notifications and control center
+  - Swaync for notifications and control center
 
 ### 🎮 Gaming Ready
 - Steam
 - Wine/Proton for Windows compatibility
 - Hybrid GPU setup for ROG laptops with Supergfxd for on-demand switching
-- Custom-patched ROG/CachyOS kernel support
+- Custom-patched ROG/CachyOS kernel
 
 ### 🧑‍💻 Development
 - **Neovim** with modular NVF-style config:
@@ -57,5 +57,4 @@ Declarative, reproducible system configuration for my personal machines running 
 ### 🧼 Aesthetics & Theming
 - Unified GTK and QT theming
 - Plasma and Hyprland themed consistently
-- WezTerm and Ghostty with declarative color configs
-- Custom CSS for swaync and Waybar
+- Terminal emulators and widgets with declarative color configs
