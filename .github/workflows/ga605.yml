@@ -36,7 +36,7 @@ jobs:
           authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
 
 
-      - name: Build kernel
+      - name: Build system
         run: |
           nix build .#nixosConfigurations.matrix.config.system.build.toplevel
       
