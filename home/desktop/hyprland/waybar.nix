@@ -9,11 +9,12 @@ in {
       {
         layer = "top";
         position = "top";
-        modules-center = [
-          "clock"
-        ];
+
         modules-left = [
           "hyprland/workspaces"
+        ];
+        modules-center = [
+          "clock"
         ];
         modules-right = [
           "tray"
@@ -81,7 +82,7 @@ in {
           format = "{icon} {volume}%";
           format-bluetooth = "{volume}% {icon} ";
           format-bluetooth-muted = "󰝟 {icon} ";
-          format-muted = "󰍭 {format_source} ";
+          format-muted = "󰝟 {format_source} ";
           format-source = " {volume}% ";
           format-source-muted = "";
           format-icons = {
