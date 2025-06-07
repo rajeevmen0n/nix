@@ -63,6 +63,7 @@ window#waybar {
 #workspaces button.focused {
     color: @color2;
 }
+
 #workspaces button.focused:hover {
     color: @color3;
 }
