@@ -1,5 +1,6 @@
 {
   imports = [
+    ./hyprlock.nix
     ./pywal.nix
     ./waybar.nix
     ./wofi.nix
@@ -49,6 +50,7 @@
         "$mod, RETURN, exec, $terminal"
         "$mod, X, killactive"
         "$mod, M, exit"
+        "$mod, L, exec ,screen-lock"
         "$mod, E, exec, $fileManager"
         "$mod, F, toggleFloating"
         "$mod, SPACE, exec, $menu"
