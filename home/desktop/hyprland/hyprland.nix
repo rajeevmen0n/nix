@@ -37,6 +37,10 @@
         no_hardware_cursors = true;
       };
 
+      misc = {
+        focus_on_activate = true;
+      };
+
       # Keybinds
       "$mod" = "ALT";
 
