@@ -2,8 +2,7 @@
 {
   home.packages = with pkgs; [
     pywal16
-    # pywalfox-native
   ];
 
-  # xdg.configFile."wal/templates/".source = ./template;
+  xdg.configFile."wal/templates/colors-hyprland.conf".source = ../../../config/pywal/colors-hyprland.conf;
 }
