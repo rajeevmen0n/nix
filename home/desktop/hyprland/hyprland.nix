@@ -1,5 +1,6 @@
 {
   imports = [
+    ./hypridle.nix
     ./hyprlock.nix
     ./pywal.nix
     ./waybar.nix
