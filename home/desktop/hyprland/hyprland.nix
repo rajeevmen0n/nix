@@ -106,6 +106,13 @@
         "float, class:rog\-control\-center"
         "float, class:com\.saivert\.pwvucontrol"
       ];
+
+      layerrule = [
+        "ignorealpha 0.5, swaync-control-center"
+        "blur, swaync-control-center"
+        "ignorealpha 0.5, swaync-notification-window"
+        "blur, swaync-notification-window"
+      ];
     };
   };
 }

@@ -1,4 +1,4 @@
-{ lib, ... }: let
+{lib, ...}: let
   users = import ../../../config/users.nix;
 in {
   services.swaync = {
@@ -24,50 +24,30 @@ in {
       timeout = 4;
       timeout-low = 2;
       timeout-critical = 6;
-      
+      transition-time = 200;
+
       fit-to-screen = false;
       keyboard-shortcuts = true;
-      image-visibility = "when-available";
-      transition-time = 200;
-      hide-on-clear = false;
-      hide-on-action = false;
       script-fail-notify = true;
+
+      image-visibility = "when-available";
       notification-visibility = {
         example-name = {
           state = "muted";
           urgency = "Low";
-          app-name = "Spotify";
+          app-name = "[Ss]potify";
         };
       };
+
       widgets = [
-        "label"
         "buttons-grid"
         "mpris"
         "title"
         "dnd"
+        "label"
         "notifications"
       ];
       widget-config = {
-        title = {
-          text = "Notifications";
-          clear-all-button = true;
-          button-text = " 󰎟 ";
-        };
-        dnd = {
-          text = "Do not disturb";
-        };
-        label = {
-          max-lines = 1;
-          text = " ";
-        };
-        mpris = {
-          image-size = 96;
-          image-radius = 12;
-        };
-        volume = {
-          label = "󰕾";
-            show-per-app = true;
-        };
         buttons-grid = {
           actions = [
             {
@@ -91,6 +71,26 @@ in {
               command = "nwg-look";
             }
           ];
+        };
+
+        mpris = {
+          image-size = 96;
+          image-radius = 12;
+        };
+
+        title = {
+          text = "Notifications";
+          clear-all-button = true;
+          button-text = " 󰎟 ";
+        };
+
+        dnd = {
+          text = "Do not disturb";
+        };
+
+        label = {
+          max-lines = 1;
+          text = " ";
         };
       };
     };
