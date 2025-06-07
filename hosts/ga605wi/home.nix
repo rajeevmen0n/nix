@@ -61,4 +61,20 @@ in
       ];
     };
   };
+
+  services.hypridle.settings.listener = [
+    # Turn down brightness
+    {
+      timeout = 150;
+      on-timeout = "brightnessctl -d amdgpu_bl1 -s set 10";
+      on-resume = "brightnessctl -d amdgpu_bl1 -r";
+    }
+
+    # Turn down keyboard brightness
+    {
+      timeout = 150;
+      on-timeout = "brightnessctl -d asus::kbd_backlight -s set 0";
+      on-resume = "brightnessctl -d asus::kbd_backlight -r";
+    }
+  ];
 }
