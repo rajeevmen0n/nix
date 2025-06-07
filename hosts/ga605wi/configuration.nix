@@ -38,6 +38,12 @@ in {
   # boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.kernelPackages = pkgs.linuxPackagesFor (pkgs.callPackage ./extras/rog-kernel.nix {});
 
+  powerManagement = {
+    enable = true;
+    powertop.enable = true;
+    cpuFreqGovernor = "schedutil";
+  };
+
   # Use custom nvidia version
   hardware.nvidia.package = lib.mkForce(
     config.boot.kernelPackages.nvidiaPackages.mkDriver {

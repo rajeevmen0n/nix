@@ -50,6 +50,7 @@
   environment.systemPackages = with pkgs; [
     git
     pciutils
+    powertop
     p7zip
     sbctl
     tree
