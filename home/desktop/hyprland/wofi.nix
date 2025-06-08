@@ -3,67 +3,56 @@ let
 in {
   programs.wofi = {
     enable = true;
+    settings = {
+      term = "ghostty";
+      width = "15%";
+      lines = 11;
+      insensitive = true;
+      matching = "fuzzy";
+      show = "drun";
+      allow_images = true;
+      hide_scroll = true;
+      no_actions = true;
+    };
     style = ''
       @import '/home/${users.default.username}/.cache/wal/colors-waybar.css';
-
-      *{
-        border: none;
-        box-shadow: none;
-        outline: none;
+      * {
+      	color: @foreground;
+      	background: transparent;
       }
 
-      window {
-        font-size: 14px;
-        font-family: "JetBrains Mono";
-        background-color: @background;
-        border-radius: 8px;
+      #input {
+      	border-radius: 0.75em;
+      	border: 2px solid alpha(@color3, 0.3);
+      	box-shadow: none;
+      	background: alpha(@background, 0.8);
       }
 
       #outer-box {
-        margin: 10px 10px 20px 10px;
-        background-color: @background;
+      	padding: 10px;
+      	border-radius: 0.75em;
+      	border: 2px solid alpha(@color3, 0.3);
+      	background: @background;
       }
 
-      #inner-box {
-        margin: 10px;
-        background-color: @background;
+      #scroll {
+      	margin-top: 10px;
       }
 
-      #entry {
-        padding: 5px 10px;
-        border-radius: 20px;
+      #image {
+      	margin-right: 2px;
+      	-gtk-icon-transform:scale(0.6);
+      }
+
+      #entry:selected {
+      	border-radius: 0.25em;
+      	background-color: alpha(@color4, 0.8);
       }
 
       #entry #text {
         padding: 0px 0px 0px 10px;
         font-weight: normal;
         color: @color7;
-      }
-
-      #entry:selected {
-        background-color: @color4;
-      }
-
-      #entry:selected #text {
-        padding: 0px 0px 0px 10px;
-        font-weight: normal;
-        color: @color0;
-      }
-
-      #input {
-        background: transparent;
-        margin: 0px 5px 0px 20px;
-        color: @color7;
-        padding: 5px;
-      }
-
-      #image {
-        margin-left: 20px;
-        margin-right: 20px;
-      }
-
-      #scroll {
-        margin: 0px;
       }
     '';
   };
