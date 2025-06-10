@@ -1,4 +1,3 @@
-{ pkgs, ... }:
 let
   users = import ../../config/users.nix;
 in
@@ -26,6 +25,17 @@ in
     monitor = [
       "eDP-1, 2560x1600@240, 0x0, 1"
       "eDP-2, 2560x1600@240, 0x0, 1"
+    ];
+
+    device = [
+      {
+        name = "asuf1209:00-2808:0219-touchpad";
+        accel_profile = "adaptive";
+      }
+      {
+        name = "logitech-g305-1";
+        accel_profile = "flat";
+      }
     ];
 
     # Brightness controls
