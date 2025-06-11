@@ -42,8 +42,9 @@ in
     bindl = [
       ",XF86MonBrightnessUp, exec, brightnessctl -d amdgpu_bl1 -e4 -n2 set 5%+"
       ",XF86MonBrightnessDown, exec, brightnessctl -d amdgpu_bl1 -e4 -n2 set 5%-"
-      ",code:230, exec, brightnessctl -d asus::kbd_backlight set 1+"
-      ",code:229, exec, brightnessctl -d asus::kbd_backlight set 1-"
+      ",XF86KbdBrightnessUp, exec, brightnessctl -d asus::kbd_backlight set 1+"
+      ",XF86KbdBrightnessDown, exec, brightnessctl -d asus::kbd_backlight set 1-"
+      ",XF86Launch3, exec, asusctl aura -n"
     ];
   };
 
