@@ -39,6 +39,11 @@
         no_hardware_cursors = true;
       };
 
+      gestures = {
+        workspace_swipe = true;
+        workspace_swipe_fingers = 3;
+      };
+
       misc = {
         focus_on_activate = true;
         disable_hyprland_logo = true;
