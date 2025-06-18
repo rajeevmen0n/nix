@@ -23,8 +23,10 @@ in
   wayland.windowManager.hyprland.settings = {
     # Set internal display resolution for hyprland
     monitor = [
-      "eDP-1, 2560x1600@240, 0x0, 1"
-      "eDP-2, 2560x1600@240, 0x0, 1"
+      "eDP-1, 2560x1600@240, auto, 1"
+      "eDP-2, 2560x1600@240, auto, 1"
+      "DP-1, 3440x1440@174.96, auto, 1"
+      "DP-2, 3440x1440@174.96, auto, 1"
     ];
 
     device = [
@@ -38,6 +40,10 @@ in
       }
     ];
 
+    cursor = {
+      no_hardware_cursors = true;
+    };
+
     # Brightness controls
     bindl = [
       ",XF86MonBrightnessUp, exec, brightnessctl -d amdgpu_bl1 -e4 -n2 set 5%+"
@@ -45,6 +51,8 @@ in
       ",XF86KbdBrightnessUp, exec, brightnessctl -d asus::kbd_backlight set 1+"
       ",XF86KbdBrightnessDown, exec, brightnessctl -d asus::kbd_backlight set 1-"
       ",XF86Launch3, exec, asusctl aura -n"
+      ",switch:on:Lid Switch, exec, lid-handler close"
+      ",switch:off:Lid Switch, exec, lid-handler open"
     ];
   };
 
