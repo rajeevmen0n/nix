@@ -1,6 +1,4 @@
-{ pkgs, ... }:
-
-let
+{pkgs, ...}: let
   monitorToggleScript = pkgs.writeShellScriptBin "hypr-monitor-toggle" ''
 
     scan_monitors() {
@@ -88,19 +86,18 @@ in {
   systemd.user.services.hypr-monitor-watcher = {
     enable = true;
 
-    wantedBy = [ "default.target" ];
+    wantedBy = ["default.target"];
 
     unitConfig = {
       Description = "Hyprland Monitor Event Watcher";
-      After = [ "graphical-session.target" ];
+      After = ["graphical-session.target"];
     };
 
     serviceConfig = {
       ExecStart = "${monitorEventListener}/bin/hypr-monitor-event-watcher";
-      Restart = "always";
+      Restart = "on-failure";
       RestartSec = 2;
       Environment = "PATH=${pkgs.hyprland}/bin:${pkgs.socat}/bin:${pkgs.gawk}/bin:${pkgs.gnugrep}/bin:$PATH";
     };
   };
 }
-

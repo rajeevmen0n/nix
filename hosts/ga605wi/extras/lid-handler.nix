@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-let
+{pkgs, ...}: let
   lidHandlerScript = pkgs.writeShellScriptBin "lid-handler" ''
     # Get all active monitors (lines starting with "Monitor "), extract names
     MONITORS=$(hyprctl monitors | grep '^Monitor ' | awk '{print $2}')
@@ -29,5 +28,5 @@ let
     fi
   '';
 in {
-  environment.systemPackages = [ lidHandlerScript ];
+  environment.systemPackages = [lidHandlerScript];
 }
