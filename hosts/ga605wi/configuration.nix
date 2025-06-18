@@ -8,6 +8,9 @@
 in {
   imports = [
     ./extras/gpu-env.nix
+    ./extras/hypr-monitor-toggle.nix
+    ./extras/lid-handler.nix
+    
     ./hardware-configuration.nix
 
     ../../nixos/basic.nix

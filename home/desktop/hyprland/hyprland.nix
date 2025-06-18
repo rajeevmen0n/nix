@@ -35,10 +35,6 @@
         };
       };
 
-      cursor = {
-        no_hardware_cursors = true;
-      };
-
       gestures = {
         workspace_swipe = true;
         workspace_swipe_fingers = 3;

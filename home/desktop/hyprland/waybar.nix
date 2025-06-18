@@ -26,18 +26,19 @@ in {
         ];
 
         "hyprland/workspaces" = {
-          active-only = false;
-          show-special = false;
-          all-outputs = false;
           disable-scroll = true;
           format = "{icon}";
           format-icons = {
-            default = "○";
-            active = "";
-            urgent = "!";
-          };
-          persistent-workspaces = {
-            "*" = 10;
+            "1" = "1";
+            "2" = "2";
+            "3" = "3";
+            "4" = "4";
+            "5" = "5";
+            "6" = "6";
+            "7" = "7";
+            "8" = "8";
+            "9" = "9";
+            "default" = "1";
           };
         };
 
