@@ -5,27 +5,27 @@
   buildLinux,
   ...
 } @ args: let
-  version = "6.14.8";
+  version = "6.15.3";
   major = lib.versions.major version;
   majorMinor = lib.versions.majorMinor version;
 
   kernelSrc = fetchurl {
     url = "mirror://kernel/linux/kernel/v${major}.x/linux-${version}.tar.xz";
-    hash = "sha256-YrEuzTB1o1frMgk1ZX3oTgFVKANxfa04P6fMOqSqKQU=";
+    hash = "sha256-ErUMiZJUONnNc4WgyvycQz5lYqxd8AohiJ/On1SNZbA=";
   };
 
   patchesSrc = fetchFromGitHub {
-    owner = "flukejones";
-    repo = "cachyos-kernel-patches";
-    rev = "8d39b9876bd6ed3353b3089591c82cd8549b6fc1";
-    hash = "sha256-pM8Dtpna4publpvKVUy7vACF3JwhMjMQBZyKnPSV/Wk=";
+    owner = "CachyOS";
+    repo = "kernel-patches";
+    rev = "1fc243888f62589785f2a9502445aa6ea2b3188f";
+    hash = "sha256-Ug9ZzTV5ivMFgh4KL6QHgOCkrpwAHmUllfCDQXQzGeM=";
   };
 in
   buildLinux (
     args
     // {
       inherit version;
-      pname = "linux-rog";
+      pname = "linux-rog-cachyos";
       modDirVersion = version;
       src = kernelSrc;
       kernelPatches = [
@@ -34,24 +34,24 @@ in
           patch = "${patchesSrc}/${majorMinor}/0001-amd-pstate.patch";
         }
         {
-          name = "amd-tlb-broadcast";
-          patch = "${patchesSrc}/${majorMinor}/0002-amd-tlb-broadcast.patch";
+          name = "asus";
+          patch = "${patchesSrc}/${majorMinor}/0002-asus.patch";
         }
         {
-          name = "asus";
-          patch = "${patchesSrc}/${majorMinor}/0003-asus.patch";
+          name = "async-shutdown";
+          patch = "${patchesSrc}/${majorMinor}/0003-async-shutdown.patch";
         }
         {
           name = "bbr3";
           patch = "${patchesSrc}/${majorMinor}/0004-bbr3.patch";
         }
         {
-          name = "cachy";
-          patch = "${patchesSrc}/${majorMinor}/0005-cachy.patch";
+          name = "zstd";
+          patch = "${patchesSrc}/${majorMinor}/0005-block.patch";
         }
         {
-          name = "crypto";
-          patch = "${patchesSrc}/${majorMinor}/0006-crypto.patch";
+          name = "cachy";
+          patch = "${patchesSrc}/${majorMinor}/0006-cachy.patch";
         }
         {
           name = "fixes";
@@ -62,17 +62,16 @@ in
           patch = "${patchesSrc}/${majorMinor}/0008-t2.patch";
         }
         {
-          name = "zstd";
-          patch = "${patchesSrc}/${majorMinor}/0009-zstd.patch";
-        }
-        {
-          name = "zotac-zone";
-          patch = "${patchesSrc}/${majorMinor}/0010-zotac-zone.patch";
+          name = "bore";
+          patch = "${patchesSrc}/${majorMinor}/sched/0001-bore-cachy.patch";
         }
       ];
       structuredExtraConfig = with lib.kernel; {
         ASUS_ALLY_HID = module;
         ASUS_ARMOURY = module;
+        AMD_PRIVATE_COLOR = yes;
+        CACHY=yes;
+        SCHED_BORE=yes;
       };
       extraMakeFlags = ["-j32"];
       extraMeta = {
