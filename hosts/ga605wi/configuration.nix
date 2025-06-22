@@ -9,6 +9,7 @@ in {
   imports = [
     ./hardware-configuration.nix
 
+    ./nixos/dsdt.nix
     ./nixos/gpu-env.nix
     ./nixos/hypr-monitor-toggle.nix
     ./nixos/lid-handler.nix
