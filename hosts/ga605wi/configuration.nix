@@ -7,11 +7,11 @@
   hosts = import ../../config/hosts.nix;
 in {
   imports = [
-    ./extras/gpu-env.nix
-    ./extras/hypr-monitor-toggle.nix
-    ./extras/lid-handler.nix
-    
     ./hardware-configuration.nix
+
+    ./nixos/gpu-env.nix
+    ./nixos/hypr-monitor-toggle.nix
+    ./nixos/lid-handler.nix
 
     ../../nixos/basic.nix
     ../../nixos/gaming.nix
@@ -39,7 +39,7 @@ in {
 
   # WiFi card doesn't work on the stable kernel
   # boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.kernelPackages = pkgs.linuxPackagesFor (pkgs.callPackage ./extras/rog-kernel.nix {});
+  boot.kernelPackages = pkgs.linuxPackagesFor (pkgs.callPackage ./nixos/rog-kernel.nix {});
 
   powerManagement = {
     enable = true;
