@@ -48,6 +48,7 @@
 
   # Basic tools
   environment.systemPackages = with pkgs; [
+    google-chrome
     git
     pciutils
     powertop
