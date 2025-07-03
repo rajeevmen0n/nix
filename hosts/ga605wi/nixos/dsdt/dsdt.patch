@@ -1,5 +1,5 @@
---- dsdt.dsl    2025-06-22 14:27:52.133707060 -0700
-+++ dsdt.dsl 2025-06-22 14:28:53.768040326 -0700
+--- dsdt.dsl   2025-07-03 00:18:05.114476594 -0700
++++ dsdt.dsl   2025-07-03 00:32:56.366139046 -0700
 @@ -18,12 +18,12 @@
   *     Compiler ID      "INTL"
   *     Compiler Version 0x20230331 (539165489)
@@ -15,7 +15,7 @@
      External (_SB_.AWAK, MethodObj)    // 1 Arguments
      External (_SB_.GSRV, MethodObj)    // 1 Arguments
      External (_SB_.LID0, DeviceObj)
-@@ -14419,8 +14419,8 @@
+@@ -14497,8 +14497,8 @@
 
          Method (_QB6, 0, NotSerialized)  // _Qxx: EC Query, xx=0x00-0xFF
          {
