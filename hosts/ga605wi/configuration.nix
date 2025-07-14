@@ -26,6 +26,7 @@ in {
     ../../nixos/hardware/nvidia.nix
 
     ../../nixos/system/cachix.nix
+    ../../nixos/system/hdr.nix
     ../../nixos/system/ios.nix
     ../../nixos/system/plymouth.nix
     ../../nixos/system/secureboot.nix
