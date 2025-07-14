@@ -5,20 +5,20 @@
   buildLinux,
   ...
 } @ args: let
-  version = "6.15.3";
+  version = "6.15.6";
   major = lib.versions.major version;
   majorMinor = lib.versions.majorMinor version;
 
   kernelSrc = fetchurl {
     url = "mirror://kernel/linux/kernel/v${major}.x/linux-${version}.tar.xz";
-    hash = "sha256-ErUMiZJUONnNc4WgyvycQz5lYqxd8AohiJ/On1SNZbA=";
+    hash = "sha256-K7WGyVQnfQcMj99tcnX6qTtIB9m/M1O0kdgUnMoCtPw=";
   };
 
   patchesSrc = fetchFromGitHub {
     owner = "CachyOS";
     repo = "kernel-patches";
-    rev = "1fc243888f62589785f2a9502445aa6ea2b3188f";
-    hash = "sha256-Ug9ZzTV5ivMFgh4KL6QHgOCkrpwAHmUllfCDQXQzGeM=";
+    rev = "f435ec707555a2d044e8e1a53dac8df89610e06f";
+    hash = "sha256-OWhXk361D1SxKF2Sd2DuiNI6YhiWax0AZEjxlsJ2Q3s=";
   };
 in
   buildLinux (
@@ -30,36 +30,8 @@ in
       src = kernelSrc;
       kernelPatches = [
         {
-          name = "amd-pstate";
-          patch = "${patchesSrc}/${majorMinor}/0001-amd-pstate.patch";
-        }
-        {
-          name = "asus";
-          patch = "${patchesSrc}/${majorMinor}/0002-asus.patch";
-        }
-        {
-          name = "async-shutdown";
-          patch = "${patchesSrc}/${majorMinor}/0003-async-shutdown.patch";
-        }
-        {
-          name = "bbr3";
-          patch = "${patchesSrc}/${majorMinor}/0004-bbr3.patch";
-        }
-        {
-          name = "zstd";
-          patch = "${patchesSrc}/${majorMinor}/0005-block.patch";
-        }
-        {
-          name = "cachy";
-          patch = "${patchesSrc}/${majorMinor}/0006-cachy.patch";
-        }
-        {
-          name = "fixes";
-          patch = "${patchesSrc}/${majorMinor}/0007-fixes.patch";
-        }
-        {
-          name = "t2";
-          patch = "${patchesSrc}/${majorMinor}/0008-t2.patch";
+          name = "base-patch";
+          patch = "${patchesSrc}/${majorMinor}/all/0001-cachyos-base-all.patch";
         }
         {
           name = "bore";
@@ -67,7 +39,6 @@ in
         }
       ];
       structuredExtraConfig = with lib.kernel; {
-        ASUS_ALLY_HID = module;
         ASUS_ARMOURY = module;
         AMD_PRIVATE_COLOR = yes;
         CACHY=yes;
