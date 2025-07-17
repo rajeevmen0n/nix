@@ -12,9 +12,8 @@
     };
   };
 
-  programs.noisetorch.enable = true;
-
   environment.systemPackages = with pkgs; [
+    easyeffects
     pwvucontrol
   ];
 }
