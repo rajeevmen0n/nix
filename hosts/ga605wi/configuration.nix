@@ -14,8 +14,8 @@ in {
     ./nixos/hypr-monitor-toggle.nix
     ./nixos/lid-handler.nix
 
-    ../../nixos/basic.nix
     ../../nixos/gaming.nix
+    ../../nixos/pc.nix
 
     ../../nixos/desktop/hyprland.nix
     ../../nixos/desktop/plasma.nix
@@ -50,7 +50,7 @@ in {
   };
 
   # Use custom nvidia version
-  hardware.nvidia.package = lib.mkForce(
+  hardware.nvidia.package = lib.mkForce (
     config.boot.kernelPackages.nvidiaPackages.mkDriver {
       version = "570.169";
       sha256_64bit = "sha256-XzKoR3lcxcP5gPeRiausBw2RSB1702AcAsKCndOHN2U=";

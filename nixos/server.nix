@@ -24,9 +24,6 @@
     LC_TIME = "en_US.UTF-8";
   };
 
-  # Enable CUPS to print documents.
-  services.printing.enable = true;
-
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
@@ -43,19 +40,13 @@
     options = "--delete-older-than 30d";
   };
 
-  # Install firefox.
-  programs.firefox.enable = true;
-
   # Basic tools
   environment.systemPackages = with pkgs; [
-    google-chrome
     git
-    pciutils
-    powertop
     p7zip
-    sbctl
     tree
     unzip
+    tree
     vim
     wget
   ];

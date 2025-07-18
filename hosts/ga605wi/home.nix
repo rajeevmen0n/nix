@@ -1,7 +1,6 @@
 let
   users = import ../../config/users.nix;
-in
-{
+in {
   imports = [
     ./home/hyprland.nix
     ./home/plasma.nix
@@ -9,6 +8,7 @@ in
     ../../home/apps/media.nix
     ../../home/apps/minecraft.nix
     ../../home/dev.nix
+    ../../home/fonts.nix
     ../../home/cli/btop.nix
     ../../home/desktop/gtk.nix
     ../../home/desktop/hyprland/hyprland.nix
