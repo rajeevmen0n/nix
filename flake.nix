@@ -110,6 +110,14 @@
         overlays = [ neovimOverlay unstableOverlay ];
       };
 
+      # Mainframe config
+      nixosConfigurations."${hosts.mainframe.hostname}" = mkNixOSConfigurations {
+        host = hosts.mainframe;
+        nixpkgs = inputs.nixpkgs;
+        home-manager = inputs.home-manager;
+        overlays = [ neovimOverlay unstableOverlay ];
+      };
+
       # Sample config for non nix-os systems using home manager
       # homeConfigurations."${hosts.<host>.user}@${hosts.<host>.hostname}" = mkHomeConfigurations {
       #   host = hosts.<host>;
