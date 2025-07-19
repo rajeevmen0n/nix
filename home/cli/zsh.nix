@@ -34,7 +34,9 @@
       bindkey ";5A" history-substring-search-up-prefixed
       bindkey ";5B" history-substring-search-down-prefixed
 
-      (cat ~/.cache/wal/sequences &)
+      if [ -f ~/.cache/wal/sequences ]; then
+        (cat ~/.cache/wal/sequences &)
+      fi
     '';
 
     shellAliases = {
