@@ -4,6 +4,7 @@ in {
   imports = [
     ./hardware-configuration.nix
 
+    ./nixos/ddns.nix
     ./nixos/nginx.nix
 
     ../../nixos/server.nix
