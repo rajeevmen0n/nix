@@ -3,6 +3,9 @@ let
 in {
   imports = [
     ./hardware-configuration.nix
+
+    ./nixos/nginx.nix
+
     ../../nixos/server.nix
     ../../nixos/system/users.nix
   ];
