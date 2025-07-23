@@ -30,6 +30,15 @@ in {
         forceSSL = true;
         enableACME = true;
       };
+
+      "wg-easy" = {
+        serverName = wireguardDomain;
+        useACMEHost = domain;
+        forceSSL = true;
+        locations."/" = {
+          proxyPass = "http://127.0.0.1:51821";
+        };
+      };
     };
   };
 }
