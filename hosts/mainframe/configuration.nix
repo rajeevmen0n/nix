@@ -6,8 +6,10 @@ in {
 
     ./nixos/ddns.nix
     ./nixos/nginx.nix
+    ./nixos/wireguard.nix
 
     ../../nixos/server.nix
+    ../../nixos/system/podman.nix
     ../../nixos/system/users.nix
   ];
 
