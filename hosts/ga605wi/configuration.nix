@@ -18,7 +18,7 @@ in {
     ../../nixos/pc.nix
 
     ../../nixos/desktop/hyprland.nix
-    ../../nixos/desktop/plasma.nix
+    # ../../nixos/desktop/plasma.nix
     ../../nixos/desktop/greetd.nix
 
     ../../nixos/hardware/amdgpu.nix
