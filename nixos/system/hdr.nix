@@ -5,7 +5,9 @@ in {
   system.activationScripts.createHdrSh = ''
     PLASMA_ENV="${home}/.config/plasma-workspace/env/hdr.sh"
     mkdir -p $(dirname $PLASMA_ENV)
+    chown ${users.default.username}:users "${home}/.config" "${home}/.config/plasma-workspace" "${home}/.config/plasma-workspace/env"
     echo 'export KWIN_FORCE_ASSUME_HDR_SUPPORT=1' > $PLASMA_ENV
+    chown ${users.default.username}:users $PLASMA_ENV
   '';
 
   programs.steam.gamescopeSession.enable = true;

@@ -33,12 +33,13 @@ in
       PLASMA_ENV="${home}/.config/plasma-workspace/env/gpu-env.sh"
 
       mkdir -p "$(dirname "$UWSM_ENV")" "$(dirname "$PLASMA_ENV")"
+      chown ${users.default.username}:users "${home}/.config" "${home}/.config/uwsm" "${home}/.config/plasma-workspace" "${home}/.config/plasma-workspace/env"
 
       case "$MODE" in
         Hybrid|Integrated)
-          echo "export AQ_DRM_DEVICES=/dev/dri/card1:/dev/dri/card0" > "$UWSM_ENV"
+          echo "export AQ_DRM_DEVICES=/dev/dri/card1" > "$UWSM_ENV"
           echo "export AQ_NO_ATOMIC=1" >> "$UWSM_ENV"
-          echo "export KWIN_DRM_DEVICES=/dev/dri/card1:/dev/dri/card0" > "$PLASMA_ENV"
+          echo "export KWIN_DRM_DEVICES=/dev/dri/card1" > "$PLASMA_ENV"
           ;;
         AsusMuxDgpu)
           echo "# AsusMuxDgpu mode — no overrides" > "$UWSM_ENV"
@@ -49,6 +50,8 @@ in
           echo "# Unknown mode: '$MODE'" > "$PLASMA_ENV"
           ;;
       esac
+
+      chown ${users.default.username}:users "$(dirname "$UWSM_ENV")" "$(dirname "$PLASMA_ENV")" "$UWSM_ENV" "$PLASMA_ENV"
     '';
   };
 }
