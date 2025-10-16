@@ -12,8 +12,8 @@ in {
     ../../home/cli/btop.nix
     ../../home/desktop/gtk.nix
     ../../home/desktop/hyprland/hyprland.nix
-    ../../home/desktop/plasma/kwin-forceblur.nix
-    ../../home/desktop/plasma/plasma.nix
+    # ../../home/desktop/plasma/kwin-forceblur.nix
+    # ../../home/desktop/plasma/plasma.nix
     ../../home/desktop/qt.nix
   ];
 
