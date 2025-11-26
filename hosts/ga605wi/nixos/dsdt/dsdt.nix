@@ -6,7 +6,7 @@
 
     mkdir -p $out/kernel/firmware/acpi
     cd $out
-    cp ${./dsdt.315.dat} ./dsdt.dat
+    cp ${./dsdt.316.dat} ./dsdt.dat
 
     # Decompile to DSL
     iasl -d dsdt.dat
