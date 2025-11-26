@@ -5,20 +5,20 @@
   buildLinux,
   ...
 } @ args: let
-  version = "6.15.6";
+  version = "6.17.9";
   major = lib.versions.major version;
   majorMinor = lib.versions.majorMinor version;
 
   kernelSrc = fetchurl {
     url = "mirror://kernel/linux/kernel/v${major}.x/linux-${version}.tar.xz";
-    hash = "sha256-K7WGyVQnfQcMj99tcnX6qTtIB9m/M1O0kdgUnMoCtPw=";
+    hash = "sha256-bQiAO5U8UJ30jUTTKB7TklJDIdi7NT6yHAVVeQyPjgY=";
   };
 
   patchesSrc = fetchFromGitHub {
     owner = "CachyOS";
     repo = "kernel-patches";
-    rev = "f435ec707555a2d044e8e1a53dac8df89610e06f";
-    hash = "sha256-OWhXk361D1SxKF2Sd2DuiNI6YhiWax0AZEjxlsJ2Q3s=";
+    rev = "b8f46aff318e08b1d088b8d6f8f46c7f463a78cc";
+    hash = "sha256-WyNbpFLNUMhOgezAsOpjRovuDz2LcyU2gwrN99xG5dg=";
   };
 in
   buildLinux (
