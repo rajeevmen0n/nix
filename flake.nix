@@ -106,7 +106,7 @@
         nixpkgs = inputs.nixpkgs;
         home-manager = inputs.home-manager;
         modules = [ inputs.lanzaboote.nixosModules.lanzaboote ];
-        homeManagerModules = [ inputs.plasma-manager.homeManagerModules.plasma-manager ];
+        homeManagerModules = [ inputs.plasma-manager.homeModules.plasma-manager ];
         overlays = [ neovimOverlay unstableOverlay ];
       };
 
