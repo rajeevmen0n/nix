@@ -35,10 +35,9 @@
         };
       };
 
-      gestures = {
-        workspace_swipe = true;
-        workspace_swipe_fingers = 3;
-      };
+      gesture = [
+        "3, horizontal, workspace"
+      ];
 
       misc = {
         focus_on_activate = true;

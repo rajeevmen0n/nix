@@ -37,9 +37,9 @@ in
 
       case "$MODE" in
         Hybrid|Integrated)
-          echo "export AQ_DRM_DEVICES=/dev/dri/card1" > "$UWSM_ENV"
+          echo "export AQ_DRM_DEVICES=/dev/dri/card2" > "$UWSM_ENV"
           echo "export AQ_NO_ATOMIC=1" >> "$UWSM_ENV"
-          echo "export KWIN_DRM_DEVICES=/dev/dri/card1" > "$PLASMA_ENV"
+          echo "export KWIN_DRM_DEVICES=/dev/dri/card2" > "$PLASMA_ENV"
           ;;
         AsusMuxDgpu)
           echo "# AsusMuxDgpu mode — no overrides" > "$UWSM_ENV"

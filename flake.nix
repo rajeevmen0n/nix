@@ -3,9 +3,9 @@
 
   inputs = {
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.05";
+      url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     lanzaboote = {
@@ -71,15 +71,15 @@
           ] ++ modules;
         };
 
-      mkOverlayFromUnstable = pkgNames:
-        map (name: (final: prev: {
-          ${name} = (import inputs.nixpkgs-unstable {
-              inherit (final) system;
-              config = {
-                allowUnfree = true;
-              };
-          }).${name};
-      })) pkgNames;
+      # mkOverlayFromUnstable = pkgNames:
+      #   map (name: (final: prev: {
+      #     ${name} = (import inputs.nixpkgs-unstable {
+      #         inherit (final) system;
+      #         config = {
+      #           allowUnfree = true;
+      #         };
+      #     }).${name};
+      # })) pkgNames;
 
       unstableOverlay = final: prev: {
         unstable = import inputs.nixpkgs-unstable {
@@ -91,7 +91,7 @@
       neovimOverlay = (
         final: prev: {
           neovimWrapped = (inputs.nvf.lib.neovimConfiguration {
-            pkgs = inputs.nixpkgs-unstable.legacyPackages.${final.system};
+            pkgs = inputs.nixpkgs-unstable.legacyPackages.${final.stdenv.hostPlatform.system};
             modules = [ ./config/nvim/nvf.nix ];
           }).neovim;
         }
