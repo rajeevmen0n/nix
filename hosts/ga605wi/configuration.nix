@@ -29,7 +29,7 @@ in {
     ../../nixos/system/hdr.nix
     ../../nixos/system/ios.nix
     ../../nixos/system/plymouth.nix
-    # ../../nixos/system/secureboot.nix
+    ../../nixos/system/secureboot.nix
     ../../nixos/system/users.nix
   ];
 
