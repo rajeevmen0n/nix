@@ -13,6 +13,9 @@
       '';
 
       secureBoot.enable = true;
+
+      style.wallpapers = lib.mkForce [ ];
+
     };
   };
 }
