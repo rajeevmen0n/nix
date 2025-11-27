@@ -16,7 +16,7 @@
       font-size = 12;
 
       # Theme
-      theme = "catppuccin-mocha";
+      theme = "Catppuccin Mocha";
       background = "#000000";
       background-opacity = 0.8;
       background-blur = true;
