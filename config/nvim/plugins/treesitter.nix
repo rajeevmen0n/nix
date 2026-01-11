@@ -33,12 +33,5 @@
       xml
       yaml
     ];
-
-    mappings.incrementalSelection = {
-      init = "<C-space>";
-      incrementByNode = "<C-space>";
-      decrementByNode = "<bs>";
-      incrementByScope = null;
-    };
   };
 }
