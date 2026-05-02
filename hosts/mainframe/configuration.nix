@@ -5,6 +5,7 @@ in {
     ./hardware-configuration.nix
 
     ./nixos/ddns.nix
+    ./nixos/minecraft.nix
     ./nixos/nginx.nix
     ./nixos/wireguard.nix
 

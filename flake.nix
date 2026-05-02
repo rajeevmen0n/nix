@@ -18,6 +18,7 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
       inputs.home-manager.follows = "home-manager";
     };
+    nix-minecraft.url = "github:Infinidoge/nix-minecraft";
   };
 
   outputs =
@@ -115,7 +116,8 @@
         host = hosts.mainframe;
         nixpkgs = inputs.nixpkgs;
         home-manager = inputs.home-manager;
-        overlays = [ neovimOverlay unstableOverlay ];
+        modules = [ inputs.nix-minecraft.nixosModules.minecraft-servers ];
+        overlays = [ neovimOverlay unstableOverlay inputs.nix-minecraft.overlay ];
       };
 
       # Sample config for non nix-os systems using home manager
