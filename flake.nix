@@ -92,7 +92,7 @@
       neovimOverlay = (
         final: prev: {
           neovimWrapped = (inputs.nvf.lib.neovimConfiguration {
-            pkgs = inputs.nixpkgs-unstable.legacyPackages.${final.stdenv.hostPlatform.system};
+            pkgs = final.unstable;
             modules = [ ./config/nvim/nvf.nix ];
           }).neovim;
         }
