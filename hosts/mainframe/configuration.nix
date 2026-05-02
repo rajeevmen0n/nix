@@ -7,6 +7,7 @@ in {
     ./nixos/ddns.nix
     ./nixos/minecraft.nix
     ./nixos/nginx.nix
+    ./nixos/rummy.nix
     ./nixos/wireguard.nix
 
     ../../nixos/server.nix

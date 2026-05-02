@@ -3,13 +3,14 @@ let
   domain = "icyfire.dev";
   wwwDomain = "www.${domain}";
   wireguardDomain = "wireguard.${domain}";
+  rummyDomain = "rummy.${domain}";
 in {
   networking.firewall.allowedTCPPorts = [80 443];
 
   security.acme = {
     acceptTerms = true;
     defaults.email = users.default.email;
-    certs."${domain}".extraDomainNames = [wireguardDomain];
+    certs."${domain}".extraDomainNames = [wireguardDomain rummyDomain];
   };
 
   services.nginx = {
@@ -37,6 +38,16 @@ in {
         forceSSL = true;
         locations."/" = {
           proxyPass = "http://127.0.0.1:51821";
+        };
+      };
+
+      "rummy" = {
+        serverName = rummyDomain;
+        useACMEHost = domain;
+        forceSSL = true;
+        locations."/" = {
+          proxyPass = "http://127.0.0.1:3100";
+          proxyWebsockets = true;
         };
       };
     };

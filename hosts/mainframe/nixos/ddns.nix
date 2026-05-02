@@ -9,6 +9,6 @@ in {
     server = "dynamicdns.park-your-domain.com";
     username = "icyfire.dev";
     passwordFile = "/home/${users.default.username}/.config/.ddclient";
-    domains = [ "@" "www" "wireguard" ];
+    domains = [ "@" "www" "wireguard" "rummy" ];
   };
 }
