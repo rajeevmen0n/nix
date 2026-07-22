@@ -10,6 +10,7 @@ in {
     # ./nixos/rummy.nix
     # ./nixos/wireguard.nix
 
+    ../../nixos/ai.nix
     ../../nixos/server.nix
     ../../nixos/system/podman.nix
     ../../nixos/system/users.nix
