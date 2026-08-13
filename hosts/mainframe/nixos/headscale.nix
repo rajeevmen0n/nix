@@ -1,15 +1,29 @@
+{ lib, ... }:
+
 {
+  systemd.tmpfiles.rules = [
+    "d /persist/headscale 0700 headscale headscale - -"
+    "d /persist/tailscale 0700 root root - -"
+  ];
+
   services.tailscale = {
     enable = true;
     
     useRoutingFeatures = "server";
 
     extraUpFlags = [
-      "--login-server=http://127.0.0.1:8080"
+      "--login-server=https://headscale.icyfire.dev"
       "--advertise-exit-node"
     ];
 
-    authKeyFile = "/var/secrets/tailscale_auth_key";
+    extraDaemonFlags = [
+      "--state=/persist/tailscale/tailscaled.state"
+    ];
+  };
+
+  systemd.services.tailscaled.serviceConfig = {
+    StateDirectory = lib.mkForce [ ];
+    ReadWritePaths = [ "/persist/tailscale" ];
   };
 
   services.headscale = {
@@ -20,6 +34,10 @@
 
     settings = {
       server_url = "https://headscale.icyfire.dev";
+
+      noise = {
+        private_key_path = "/persist/headscale/noise_private.key";
+      };
 
       prefixes = {
         v4 = "100.64.0.0/10";
@@ -46,13 +64,14 @@
           region_code = "icyfire";
           region_name = "Icyfire Local Relay";
           stun_listen_addr = "0.0.0.0:3478";
+          private_key_path = "/persist/headscale/derp_server_private.key";
         };
       };
 
       database = {
         type = "sqlite";
         sqlite = {
-          path = "/var/lib/headscale/db.sqlite";
+          path = "/persist/headscale/db.sqlite";
           write_ahead_log = true;
         };
       };
@@ -62,6 +81,11 @@
         format = "text";
       };
     };
+  };
+
+  systemd.services.headscale.serviceConfig = {
+    StateDirectory = lib.mkForce [ ];
+    ReadWritePaths = [ "/persist/headscale" ];
   };
 
   networking.firewall.allowedUDPPorts = [ 3478 ];
