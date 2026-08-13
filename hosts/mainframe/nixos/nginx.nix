@@ -1,5 +1,4 @@
 let
-  users = import ../../../config/users.nix;
   domain = "icyfire.dev";
   wwwDomain = "www.${domain}";
   wireguardDomain = "wireguard.${domain}";
@@ -15,7 +14,7 @@ in
 
   security.acme = {
     acceptTerms = true;
-    defaults.email = users.default.email;
+    defaults.email = "admin@icyfire.dev";
     certs."${domain}".extraDomainNames = [
       wireguardDomain
       rummyDomain
@@ -84,14 +83,14 @@ in
         locations."/" = {
           proxyPass = "http://127.0.0.1:3000";
           proxyWebsockets = true;
+          extraConfig = ''
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+            proxy_set_header X-Forwarded-Host $host;
+          '';
         };
-        extraConfig = ''
-          proxy_set_header Host $host;
-          proxy_set_header X-Real-IP $remote_addr;
-          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-          proxy_set_header X-Forwarded-Proto $scheme;
-          proxy_set_header X-Forwarded-Host $host;
-        '';
       };
     };
   };
