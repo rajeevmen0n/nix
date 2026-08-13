@@ -1,0 +1,7 @@
+# Secrets & Keys
+*.key
+*.pem
+keys.txt
+.env
+.env.*
+!.env.example

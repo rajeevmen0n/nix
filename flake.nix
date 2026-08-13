@@ -15,6 +15,10 @@
       inputs.home-manager.follows = "home-manager";
     };
     nix-minecraft.url = "github:Infinidoge/nix-minecraft";
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -57,13 +61,16 @@
         nixpkgs.lib.nixosSystem {
           system = host.arch;
           modules = [
+            inputs.sops-nix.nixosModules.sops
             ./hosts/${host.dir}/configuration.nix
             { nixpkgs.overlays = overlays; }
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
               home-manager.users."${host.user.username}" = import ./hosts/${host.dir}/home.nix;
-              home-manager.sharedModules = homeManagerModules;
+              home-manager.sharedModules = [
+                inputs.sops-nix.homeManagerModules.sops
+              ] ++ homeManagerModules;
             }
           ] ++ modules;
         };

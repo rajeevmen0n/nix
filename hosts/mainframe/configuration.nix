@@ -11,6 +11,7 @@ in {
     ./nixos/headscale.nix
     ./nixos/headplane.nix
     # ./nixos/wireguard.nix
+    ./nixos/sops.nix
 
     ../../nixos/ai.nix
     ../../nixos/server.nix

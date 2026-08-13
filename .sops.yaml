@@ -1,0 +1,15 @@
+keys:
+  - &user_rajeev age1ufx86rpkfvu2vmcr8j7l2x7xpjjta75j4xcew5t9qd7plqeuhcnqkwpxam
+  - &host_mainframe age13stvlr0zauv4zwsy08fqens5cetsskf89ev0e9ertvup9xtkwq3ssc8g2m
+
+creation_rules:
+  - path_regex: hosts/mainframe/secrets/[^/]+\.(yaml|json|env|ini)$
+    key_groups:
+      - age:
+          - *user_rajeev
+          - *host_mainframe
+  - path_regex: secrets/[^/]+\.(yaml|json|env|ini)$
+    key_groups:
+      - age:
+          - *user_rajeev
+          - *host_mainframe
