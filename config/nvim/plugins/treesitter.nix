@@ -27,7 +27,6 @@
       regex
       rust
       ssh_config
-      tmux
       vim
       toml
       xml
