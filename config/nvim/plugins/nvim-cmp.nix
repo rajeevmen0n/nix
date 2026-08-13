@@ -15,8 +15,6 @@
       "cmp-path"
       "luasnip"
       "cmp-luasnip"
-      "friendly-snippets"
-      "lspkind-nvim"
     ];
 
     sources = {
