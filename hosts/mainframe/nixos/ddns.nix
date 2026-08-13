@@ -1,6 +1,4 @@
-let
-  users = import ../../../config/users.nix;
-in {
+{ config, ... }: {
   services.ddclient = {
     enable = true;
     usev4 = "webv4, webv4=dynamicdns.park-your-domain.com/getip";
@@ -8,7 +6,7 @@ in {
     protocol = "namecheap";
     server = "dynamicdns.park-your-domain.com";
     username = "icyfire.dev";
-    passwordFile = "/home/${users.default.username}/.config/.ddclient";
+    passwordFile = config.sops.secrets.ddclient.path;
     domains = [ "@" "www" "wireguard" "rummy" "headscale" "headplane" ];
   };
 }
