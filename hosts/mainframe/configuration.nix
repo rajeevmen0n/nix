@@ -8,6 +8,8 @@ in {
     ./nixos/minecraft.nix
     ./nixos/nginx.nix
     # ./nixos/rummy.nix
+    ./nixos/headscale.nix
+    ./nixos/headplane.nix
     # ./nixos/wireguard.nix
 
     ../../nixos/ai.nix
