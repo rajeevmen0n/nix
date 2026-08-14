@@ -1,5 +1,6 @@
 {pkgs, ...}: {
   imports = [
+    ./cli/git.nix
     ./cli/zsh.nix
     ./cli/fzf.nix
     ./cli/starship.nix

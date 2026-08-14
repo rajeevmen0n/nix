@@ -42,11 +42,9 @@
 
   # Basic tools
   environment.systemPackages = with pkgs; [
-    git
     p7zip
     tree
     unzip
-    tree
     vim
     wget
   ];
