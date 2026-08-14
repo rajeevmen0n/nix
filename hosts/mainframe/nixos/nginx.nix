@@ -1,6 +1,6 @@
+{ config, ... }:
 let
   domain = "icyfire.dev";
-  wwwDomain = "www.${domain}";
   wireguardDomain = "wireguard.${domain}";
   rummyDomain = "rummy.${domain}";
   headscaleDomain = "headscale.${domain}";
@@ -9,6 +9,8 @@ let
   lldapDomain = "ldap.${domain}";
 in
 {
+  sops.secrets.cloudflare = {};
+
   networking.firewall.allowedTCPPorts = [
     80
     443
@@ -17,14 +19,15 @@ in
   security.acme = {
     acceptTerms = true;
     defaults.email = "admin@icyfire.dev";
-    certs."${domain}".extraDomainNames = [
-      wireguardDomain
-      rummyDomain
-      headscaleDomain
-      headplaneDomain
-      authDomain
-      lldapDomain
-    ];
+    certs."${domain}" = {
+      domain = domain;
+      group = "nginx";
+      extraDomainNames = [ "*.${domain}" ];
+      dnsProvider = "cloudflare";
+      credentialFiles = {
+        "CLOUDFLARE_DNS_API_TOKEN_FILE" = config.sops.secrets.cloudflare.path;
+      };
+    };
   };
 
   services.nginx = {
@@ -43,9 +46,8 @@ in
 
       "main" = {
         serverName = domain;
-        serverAliases = [ wwwDomain ];
         forceSSL = true;
-        enableACME = true;
+        useACMEHost = domain;
       };
 
       "wg-easy" = {

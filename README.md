@@ -23,12 +23,12 @@ Declarative, reproducible system configuration for personal machines running [Ni
 
 ### 🌐 Server & Infrastructure (`mainframe`)
 - **Authelia**: Centralized Single Sign-On (SSO) and authentication server integrated with LLDAP backend.
-- **LLDAP**: Lightweight LDAP identity provider and user management directory (`ldap.icyfire.dev`).
+- **LLDAP**: Lightweight LDAP identity provider and user management directory.
 - **Headscale & Headplane**: Self-hosted Tailscale control plane paired with the Headplane management web dashboard.
-- **Nginx Reverse Proxy**: Virtual hosting with SSL/TLS termination, custom headers, and Authelia middleware authorization.
-- **Dynamic DNS**: `ddclient` configured with Cloudflare DNS updates and sops secrets injection.
+- **Nginx Reverse Proxy**: Virtual hosting with SSL/TLS termination and Authelia middleware authorization.
+- **Cloudflare DDNS & DNS-01 ACME**: `ddclient` configured for Cloudflare DDNS updates, paired with Cloudflare DNS-01 ACME challenge for automated wildcard SSL certificate issuance using SOPS secrets.
+- **Tailscale & Private Service Access**: Services are accessible exclusively via the private Tailscale mesh network; Cloudflare DNS-01 verification enables valid SSL certificates without exposing HTTP endpoints publicly.
 - **Minecraft Server**: Nix-managed server instance powered by [`nix-minecraft`](https://github.com/Infinidoge/nix-minecraft).
-- **Tailscale**: Integrated Tailscale mesh network node.
 
 ### 🎮 Gaming & ROG Hardware Optimizations (`matrix`)
 - **DSDT ACPI Patches**: Custom DSDT binary patches and dynamic iGPU PCI path detection to resolve ACPI issues on ROG hardware.

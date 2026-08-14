@@ -1,14 +1,16 @@
-{ config, ... }: {
-  sops.secrets.ddclient = {};
+{ config, pkgs, ... }: {
+  environment.systemPackages = [ pkgs.ddclient ];
+
+  sops.secrets.cloudflare = {};
 
   services.ddclient = {
     enable = true;
-    usev4 = "webv4, webv4=dynamicdns.park-your-domain.com/getip";
+    usev4 = "webv4, webv4=https://api.ipify.org";
     usev6 = "disabled";
-    protocol = "namecheap";
-    server = "dynamicdns.park-your-domain.com";
-    username = "icyfire.dev";
-    passwordFile = config.sops.secrets.ddclient.path;
-    domains = [ "@" "www" "wireguard" "rummy" "headscale" "headplane" "auth" ];
+    protocol = "cloudflare";
+    zone = "icyfire.dev";
+    username = "token";
+    passwordFile = config.sops.secrets.cloudflare.path;
+    domains = [ "icyfire.dev" "headscale.icyfire.dev" ];
   };
 }
