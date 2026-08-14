@@ -1,4 +1,6 @@
 { config, ... }: {
+  sops.secrets.ddclient = {};
+
   services.ddclient = {
     enable = true;
     usev4 = "webv4, webv4=dynamicdns.park-your-domain.com/getip";
