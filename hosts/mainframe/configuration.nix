@@ -6,6 +6,7 @@ in {
 
     ./nixos/authelia.nix
     ./nixos/ddns.nix
+    ./nixos/lldap.nix
     ./nixos/minecraft.nix
     ./nixos/nginx.nix
     # ./nixos/rummy.nix

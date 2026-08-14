@@ -22,7 +22,8 @@ Declarative, reproducible system configuration for personal machines running [Ni
 - **Limine Bootloader**: Modern UEFI bootloader configured with native **Secure Boot** (`limine.secureBoot`) support and automatic Windows dual-boot chainloading.
 
 ### 🌐 Server & Infrastructure (`mainframe`)
-- **Authelia**: Centralized Single Sign-On (SSO) and authentication server with SQLite persistence.
+- **Authelia**: Centralized Single Sign-On (SSO) and authentication server integrated with LLDAP backend.
+- **LLDAP**: Lightweight LDAP identity provider and user management directory (`ldap.icyfire.dev`).
 - **Headscale & Headplane**: Self-hosted Tailscale control plane paired with the Headplane management web dashboard.
 - **Nginx Reverse Proxy**: Virtual hosting with SSL/TLS termination, custom headers, and Authelia middleware authorization.
 - **Dynamic DNS**: `ddclient` configured with Cloudflare DNS updates and sops secrets injection.

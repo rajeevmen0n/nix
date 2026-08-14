@@ -30,6 +30,10 @@ in
       storageEncryptionKeyFile = config.sops.secrets.authelia_storage_encryption_key.path;
     };
 
+    environmentVariables = {
+      AUTHELIA_AUTHENTICATION_BACKEND_LDAP_PASSWORD_FILE = config.sops.secrets.lldap_user_pass.path;
+    };
+
     settings = {
       theme = "dark";
       server = {
@@ -60,8 +64,11 @@ in
       };
 
       authentication_backend = {
-        file = {
-          path = "/var/lib/authelia-main/users_database.yml";
+        ldap = {
+          implementation = "lldap";
+          address = "ldap://127.0.0.1:3890";
+          base_dn = "dc=ldap,dc=icyfire,dc=dev";
+          user = "uid=admin,ou=people,dc=ldap,dc=icyfire,dc=dev";
         };
       };
 
