@@ -30,9 +30,8 @@ Declarative, reproducible system configuration for personal machines running [Ni
 - **Tailscale**: Integrated Tailscale mesh network node.
 
 ### 🎮 Gaming & ROG Hardware Optimizations (`matrix`)
-- **Custom ROG Kernel**: Custom-patched CachyOS/ROG Linux kernel for ASUS ROG hardware compatibility.
 - **DSDT ACPI Patches**: Custom DSDT binary patches and dynamic iGPU PCI path detection to resolve ACPI issues on ROG hardware.
-- **Hybrid GPU Switching**: NVIDIA 580+ driver integration paired with `supergfxd` and `asusd` for on-demand GPU switching.
+- **Hybrid GPU Switching**: NVIDIA driver integration paired with `supergfxd` and `asusd` for on-demand GPU switching.
 - **Display & Audio Handling**: HDR display support under Plasma, `hypr-monitor-toggle` script for dynamic external display switching on lid events, and PipeWire audio tuned with EasyEffects DSP.
 - **Gaming Ready**: Steam, Wine/Proton compatibility stack.
 
