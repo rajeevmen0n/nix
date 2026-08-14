@@ -35,13 +35,6 @@ jobs:
           name: g16-nixos
           authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
 
-
-      - name: Substitute secrets
-        run: |
-          sed -i 's/username = "";/username = "${{ secrets.NIX_USER_NAME }}";/' config/users.nix
-          sed -i 's/name = "";/name = "${{ secrets.NIX_NAME }}";/' config/users.nix
-          sed -i 's/email = "";/email = "${{ secrets.NIX_USER_EMAIL }}";/' config/users.nix
-
       - name: Build system
         run: |
           nix build .#nixosConfigurations.matrix.config.system.build.toplevel
