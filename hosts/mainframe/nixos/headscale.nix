@@ -1,10 +1,15 @@
-{ lib, ... }:
+{ config, ... }:
 
 {
-  systemd.tmpfiles.rules = [
-    "d /persist/headscale 0700 headscale headscale - -"
-    "d /persist/tailscale 0700 root root - -"
-  ];
+  sops.secrets."headscale_noise_private_key" = {
+    owner = "headscale";
+    group = "headscale";
+  };
+
+  sops.secrets."headscale_derp_private_key" = {
+    owner = "headscale";
+    group = "headscale";
+  };
 
   services.tailscale = {
     enable = true;
@@ -15,15 +20,6 @@
       "--login-server=https://headscale.icyfire.dev"
       "--advertise-exit-node"
     ];
-
-    extraDaemonFlags = [
-      "--state=/persist/tailscale/tailscaled.state"
-    ];
-  };
-
-  systemd.services.tailscaled.serviceConfig = {
-    StateDirectory = lib.mkForce [ ];
-    ReadWritePaths = [ "/persist/tailscale" ];
   };
 
   services.headscale = {
@@ -36,7 +32,7 @@
       server_url = "https://headscale.icyfire.dev";
 
       noise = {
-        private_key_path = "/persist/headscale/noise_private.key";
+        private_key_path = config.sops.secrets.headscale_noise_private_key.path;
       };
 
       prefixes = {
@@ -64,14 +60,14 @@
           region_code = "icyfire";
           region_name = "Icyfire Local Relay";
           stun_listen_addr = "0.0.0.0:3478";
-          private_key_path = "/persist/headscale/derp_server_private.key";
+          private_key_path = config.sops.secrets.headscale_derp_private_key.path;
         };
       };
 
       database = {
         type = "sqlite";
         sqlite = {
-          path = "/persist/headscale/db.sqlite";
+          path = "/var/lib/headscale/db.sqlite";
           write_ahead_log = true;
         };
       };
@@ -81,11 +77,6 @@
         format = "text";
       };
     };
-  };
-
-  systemd.services.headscale.serviceConfig = {
-    StateDirectory = lib.mkForce [ ];
-    ReadWritePaths = [ "/persist/headscale" ];
   };
 
   networking.firewall.allowedUDPPorts = [ 3478 ];

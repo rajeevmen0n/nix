@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, ... }:
 
 let
   domain = "icyfire.dev";
@@ -6,10 +6,6 @@ let
   port = 9091;
 in
 {
-  systemd.tmpfiles.rules = [
-    "d /persist/authelia 0700 authelia-main authelia-main - -"
-  ];
-
   sops.secrets."authelia_jwt_secret" = {
     owner = config.services.authelia.instances.main.user;
     group = config.services.authelia.instances.main.group;
@@ -65,26 +61,21 @@ in
 
       authentication_backend = {
         file = {
-          path = "/persist/authelia/users_database.yml";
+          path = "/var/lib/authelia-main/users_database.yml";
         };
       };
 
       storage = {
         local = {
-          path = "/persist/authelia/db.sqlite3";
+          path = "/var/lib/authelia-main/db.sqlite3";
         };
       };
 
       notifier = {
         filesystem = {
-          filename = "/persist/authelia/notification.txt";
+          filename = "/var/lib/authelia-main/notification.txt";
         };
       };
     };
-  };
-
-  systemd.services.authelia-main.serviceConfig = {
-    StateDirectory = lib.mkForce [ ];
-    ReadWritePaths = [ "/persist/authelia" ];
   };
 }

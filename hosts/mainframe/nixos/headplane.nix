@@ -1,9 +1,10 @@
-{ lib, ... }:
+{ config, ... }:
 
 {
-  systemd.tmpfiles.rules = [
-    "d /persist/headplane 0700 headscale headscale - -"
-  ];
+  sops.secrets."headplane_cookie_secret" = {
+    owner = "headscale";
+    group = "headscale";
+  };
 
   services.headplane = {
     enable = true;
@@ -13,8 +14,8 @@
         host = "127.0.0.1";
         port = 3000;
         base_url = "https://headplane.icyfire.dev";
-        cookie_secret_path = "/persist/headplane/cookie_secret";
-        data_path = "/persist/headplane";
+        cookie_secret_path = config.sops.secrets.headplane_cookie_secret.path;
+        data_path = "/var/lib/headplane";
       };
 
       headscale = {
@@ -22,19 +23,5 @@
         public_url = "https://headscale.icyfire.dev";
       };
     };
-  };
-
-  systemd.services.headplane = {
-    serviceConfig = {
-      StateDirectory = lib.mkForce [ ];
-      ReadWritePaths = [ "/persist/headplane" ];
-    };
-
-    preStart = ''
-      if [ ! -f /persist/headplane/cookie_secret ]; then
-        tr -dc 'a-zA-Z0-9' < /dev/urandom | head -c 32 > /persist/headplane/cookie_secret
-        chmod 0600 /persist/headplane/cookie_secret
-      fi
-    '';
   };
 }
