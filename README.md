@@ -1,60 +1,110 @@
-# 🧊 My Nix  Configuration
+# 🧊 My Nix Configuration
 
 ![Build Status](https://github.com/rajeevmen0n/nix/actions/workflows/ga605.yml/badge.svg)
 
-Declarative, reproducible system configuration for my personal machines running [NixOS](https://nixos.org) or [Home Manager](https://github.com/nix-community/home-manager) — optimized for gaming, development, and daily use.
+Declarative, reproducible system configuration for personal machines running [NixOS](https://nixos.org) and [Home Manager](https://github.com/nix-community/home-manager) — optimized for gaming laptops, self-hosted home servers, and daily development.
 
+---
 
 ## 💻 Configured Systems
 
-- Asus ROG G16 GA605WI - NixOS
+| Host | System Type | Architecture | Role / Hardware Specs |
+| :--- | :--- | :--- | :--- |
+| **`matrix`** (`ga605wi`) | Asus ROG G16 (GA605WI) | `x86_64-linux` | **Primary Laptop** — Gaming laptop & daily driver workstation |
+| **`mainframe`** | Oracle Cloud Free Tier VM | `aarch64` | **Infrastructure Server** — Ampere A1 Compute (4 OCPUs, 24 GB RAM, 90 GB Storage) |
 
-## ✨ Features
+---
 
-### 🖥️ Desktop Environments
-- **KDE Plasma 6**
-  - Fluent Dark theme via Kvantum
-  - Transparent blur using [`kwin-forceblur`](https://github.com/esjeon/kwin-forceblur)
+## ✨ Features & Architecture
 
-- **Hyprland (Wayland)**
-  - Pywal-based dynamic theming
-  - Custom Waybar and Wofi configs
-  - Swaync for notifications and control center
+### 🔐 Secrets Management & Security
+- **[sops-nix](https://github.com/Mic92/sops-nix)**: Declarative, encrypted secret management via AGE keys (`/etc/ssh/ssh_host_ed25519_key`) integrated into both NixOS system modules and Home Manager.
+- **Limine Bootloader**: Modern UEFI bootloader configured with native **Secure Boot** (`limine.secureBoot`) support and automatic Windows dual-boot chainloading.
 
-### 🎮 Gaming Ready
-- Steam
-- Wine/Proton for Windows compatibility
-- Hybrid GPU setup for ROG laptops with Supergfxd for on-demand switching
-- Custom-patched ROG/CachyOS kernel
+### 🌐 Server & Infrastructure (`mainframe`)
+- **Authelia**: Centralized Single Sign-On (SSO) and authentication server with SQLite persistence.
+- **Headscale & Headplane**: Self-hosted Tailscale control plane paired with the Headplane management web dashboard.
+- **Nginx Reverse Proxy**: Virtual hosting with SSL/TLS termination, custom headers, and Authelia middleware authorization.
+- **Dynamic DNS**: `ddclient` configured with Cloudflare DNS updates and sops secrets injection.
+- **Minecraft Server**: Nix-managed server instance powered by [`nix-minecraft`](https://github.com/Infinidoge/nix-minecraft).
+- **Tailscale**: Integrated Tailscale mesh network node.
 
-### 🧑‍💻 Development
-- **Neovim** with modular NVF-style config:
-  - Treesitter, LSP, nvim-cmp, Telescope, Git integrations, etc.
-- Terminal tools:
-  - `zsh`, `tmux`, `btop`, `fzf`, `starship`
-- Custom fonts and prompt theming
-- Declarative shell environments via `home-manager`
+### 🎮 Gaming & ROG Hardware Optimizations (`matrix`)
+- **Custom ROG Kernel**: Custom-patched CachyOS/ROG Linux kernel for ASUS ROG hardware compatibility.
+- **DSDT ACPI Patches**: Custom DSDT binary patches and dynamic iGPU PCI path detection to resolve ACPI issues on ROG hardware.
+- **Hybrid GPU Switching**: NVIDIA 580+ driver integration paired with `supergfxd` and `asusd` for on-demand GPU switching.
+- **Display & Audio Handling**: HDR display support under Plasma, `hypr-monitor-toggle` script for dynamic external display switching on lid events, and PipeWire audio tuned with EasyEffects DSP.
+- **Gaming Ready**: Steam, Wine/Proton compatibility stack.
 
-### 🔐 Secure Boot & Secrets
-- Secure Boot with [`lanzaboote`](https://github.com/nix-community/lanzaboote) + `sbctl`
+### 🖥️ Desktop Environments & Aesthetics
+- **Hyprland (Wayland)**:
+  - Pywal-based dynamic color generation across system components.
+  - SwayNC notification center and control panel.
+  - Custom Waybar, Wofi launcher, and custom `hyprlock` screen locker.
+  - Idle management via `hypridle` and multi-touch workspace swipe gestures.
+- **KDE Plasma 6**:
+  - Declarative desktop configuration via [`plasma-manager`](https://github.com/nix-community/plasma-manager).
+  - Fluent Dark theme via Kvantum.
+- **Display Manager**: `greetd` login manager with asterisks password feedback.
 
-### 💾 System Configuration
-- Modular system components:
-  - Audio via PipeWire
-  - AMD/NVIDIA driver handling
-  - Plymouth boot splash
-  - Multiple display manager options (GDM, SDDM, greetd)
-- System-wide settings broken into logical modules
+### 🧑‍💻 Development & Tooling
+- **Neovim (NVF)**: Modular Neovim configuration built with [`nvf`](https://github.com/notashelf/nvf) (LSP, Treesitter, nvim-cmp, Telescope, Git integration, Trouble).
+- **Terminal & Shell**:
+  - Declarative `zsh` with Pywal color palette integration.
+  - Modern terminal emulators: Ghostty and WezTerm with declarative themes.
+  - Development tools: `tmux`, `starship` prompt, `btop`, `fzf`, and `git` (managed via dedicated `git.nix` Home Manager module).
+  - VS Code (FHS) and web browsers.
 
-### 🧩 Nix Flakes + Home Manager
-- Flake-powered config with reproducible setup
-- Isolated layers for:
-  - `nixos/` — system-level modules
-  - `home/` — user-facing apps and shell
-  - `config/` — shared definitions and themes
-- Per-host configuration with override support
+---
 
-### 🧼 Aesthetics & Theming
-- Unified GTK and QT theming
-- Plasma and Hyprland themed consistently
-- Terminal emulators and widgets with declarative color configs
+## 🧩 Repository Structure
+
+This repository uses a clean, modular Nix Flake layout separating system concerns, host targets, and user environments:
+
+```
+.
+├── flake.nix              # Main flake entrypoint (NixOS 26.05 + unstable overlays)
+├── .sops.yaml             # SOPS encryption keys and path regex rules
+├── config/                # Shared metadata & user definitions
+│   ├── hosts.nix          # Host definitions (matrix, mainframe)
+│   ├── users.nix          # User metadata
+│   └── nvim/              # NVF Neovim configuration & plugins
+├── hosts/                 # Per-host configurations
+│   ├── ga605wi/           # Laptop host (matrix) configuration, DSDT patches & hardware modules
+│   └── mainframe/         # Server host (mainframe) configuration, web services & secrets
+├── nixos/                 # Modular NixOS system modules
+│   ├── desktop/           # Hyprland, Plasma, Greetd display options
+│   ├── hardware/          # Audio (PipeWire), AMD GPU, NVIDIA drivers
+│   ├── system/            # Limine, SOPS, Cachix, Podman, Plymouth, HDR
+│   ├── gaming.nix         # Gaming utilities and Steam configuration
+│   └── server.nix         # Server base configuration
+└── home/                  # Home Manager modules
+    ├── apps/              # Desktop apps (Ghostty, WezTerm, Media, Minecraft)
+    ├── cli/               # Terminal apps (Zsh, Git, Tmux, Starship, Btop, Fzf)
+    └── desktop/           # GTK, QT, Hyprland, and Plasma configs
+```
+
+---
+
+## 🚀 Usage
+
+### Link Files
+
+Symlink configuration directories to `/etc/nixos` (on NixOS) or `~/.config/home-manager`:
+
+```bash
+./install.sh
+```
+
+### Rebuild System
+
+Rebuild and switch to the configuration for your host:
+
+```bash
+# Laptop host (matrix)
+sudo nixos-rebuild switch --flake .#matrix
+
+# Server host (mainframe)
+sudo nixos-rebuild switch --flake .#mainframe
+```
+
