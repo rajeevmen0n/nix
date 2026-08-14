@@ -4,6 +4,7 @@ in {
   imports = [
     ./hardware-configuration.nix
 
+    ./nixos/authelia.nix
     ./nixos/ddns.nix
     ./nixos/minecraft.nix
     ./nixos/nginx.nix

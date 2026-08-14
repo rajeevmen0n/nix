@@ -7,6 +7,6 @@
     server = "dynamicdns.park-your-domain.com";
     username = "icyfire.dev";
     passwordFile = config.sops.secrets.ddclient.path;
-    domains = [ "@" "www" "wireguard" "rummy" "headscale" "headplane" ];
+    domains = [ "@" "www" "wireguard" "rummy" "headscale" "headplane" "auth" ];
   };
 }

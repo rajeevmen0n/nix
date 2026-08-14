@@ -5,6 +5,7 @@ let
   rummyDomain = "rummy.${domain}";
   headscaleDomain = "headscale.${domain}";
   headplaneDomain = "headplane.${domain}";
+  authDomain = "auth.${domain}";
 in
 {
   networking.firewall.allowedTCPPorts = [
@@ -20,6 +21,7 @@ in
       rummyDomain
       headscaleDomain
       headplaneDomain
+      authDomain
     ];
   };
 
@@ -89,6 +91,25 @@ in
             proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
             proxy_set_header X-Forwarded-Proto $scheme;
             proxy_set_header X-Forwarded-Host $host;
+          '';
+        };
+      };
+
+      "auth" = {
+        serverName = authDomain;
+        useACMEHost = domain;
+        forceSSL = true;
+        locations."/" = {
+          proxyPass = "http://127.0.0.1:9091";
+          proxyWebsockets = true;
+          extraConfig = ''
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+            proxy_set_header X-Forwarded-Host $host;
+            proxy_set_header X-Forwarded-URI $request_uri;
+            proxy_set_header X-Forwarded-Ssl on;
           '';
         };
       };
