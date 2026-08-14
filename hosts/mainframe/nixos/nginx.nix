@@ -1,8 +1,6 @@
 { config, ... }:
 let
   domain = "icyfire.dev";
-  wireguardDomain = "wireguard.${domain}";
-  rummyDomain = "rummy.${domain}";
   headscaleDomain = "headscale.${domain}";
   headplaneDomain = "headplane.${domain}";
   authDomain = "auth.${domain}";
@@ -48,25 +46,6 @@ in
         serverName = domain;
         forceSSL = true;
         useACMEHost = domain;
-      };
-
-      "wg-easy" = {
-        serverName = wireguardDomain;
-        useACMEHost = domain;
-        forceSSL = true;
-        locations."/" = {
-          proxyPass = "http://127.0.0.1:51821";
-        };
-      };
-
-      "rummy" = {
-        serverName = rummyDomain;
-        useACMEHost = domain;
-        forceSSL = true;
-        locations."/" = {
-          proxyPass = "http://127.0.0.1:3100";
-          proxyWebsockets = true;
-        };
       };
 
       "headscale" = {
