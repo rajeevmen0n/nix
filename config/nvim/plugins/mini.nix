@@ -10,7 +10,6 @@
       misc.enable = true;
       operators.enable = true;
       pairs.enable = true;
-      starter.enable = true;
       statusline.enable = true;
       surround.enable = true;
       tabline.enable = true;

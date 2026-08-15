@@ -13,6 +13,7 @@
     ./plugins/mini.nix
     ./plugins/nvim-cmp.nix
     ./plugins/scope-nvim.nix
+    ./plugins/snacks.nix
     ./plugins/treesitter.nix
     ./plugins/trouble.nix
   ];
