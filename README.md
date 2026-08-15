@@ -22,12 +22,12 @@ Declarative, reproducible system configuration for personal machines running [Ni
 - **Limine Bootloader**: Modern UEFI bootloader configured with native **Secure Boot** (`limine.secureBoot`) support and automatic Windows dual-boot chainloading.
 
 ### 🌐 Server & Infrastructure (`mainframe`)
-- **Authelia**: Centralized Single Sign-On (SSO) and authentication server integrated with LLDAP backend.
+- **Authelia**: Centralized Single Sign-On (SSO) and OpenID Connect (OIDC) identity provider backed by LLDAP, managing authentication and domain access control policies.
 - **LLDAP**: Lightweight LDAP identity provider and user management directory.
-- **Headscale & Headplane**: Self-hosted Tailscale control plane paired with the Headplane management web dashboard.
-- **Nginx Reverse Proxy**: Virtual hosting with SSL/TLS termination and Authelia middleware authorization.
-- **Cloudflare DDNS & DNS-01 ACME**: `ddclient` configured for Cloudflare DDNS updates, paired with Cloudflare DNS-01 ACME challenge for automated wildcard SSL certificate issuance using SOPS secrets.
-- **Tailscale & Private Service Access**: Services are accessible exclusively via the private Tailscale mesh network; Cloudflare DNS-01 verification enables valid SSL certificates without exposing HTTP endpoints publicly.
+- **Headscale & Headplane**: Self-hosted Tailscale control plane with embedded DERP relay and Headplane web dashboard, integrated with Authelia OIDC SSO, API key login, and admin access control.
+- **Nginx Reverse Proxy**: Virtual hosting with SSL/TLS termination, WebSocket proxying, and Authelia forward-auth verification for administrative endpoints.
+- **Cloudflare DDNS & DNS-01 ACME**: `ddclient` DDNS synchronization across domains and automated Cloudflare DNS-01 ACME wildcard certificate issuance using SOPS secrets.
+- **Tailscale & Exit Node**: Automatic node registration and pre-approved default exit node routing (`0.0.0.0/0`, `::/0`) on `mainframe`.
 - **Minecraft Server**: Nix-managed server instance powered by [`nix-minecraft`](https://github.com/Infinidoge/nix-minecraft).
 
 ### 🎮 Gaming & ROG Hardware Optimizations (`matrix`)
