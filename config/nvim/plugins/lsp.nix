@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ pkgs, lib, ... }:
 {
   imports = [
     ./languages/default.nix
@@ -6,6 +6,13 @@
   ];
 
   vim = {
+    lazy.plugins = {
+      "nvim-lsp-file-operations" = {
+        package = pkgs.vimPlugins.nvim-lsp-file-operations;
+        setupModule = "lsp-file-operations";
+        setupOpts = {};
+      };
+    };
 
     lsp = {
       enable = true;
