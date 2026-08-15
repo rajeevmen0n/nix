@@ -1,7 +1,9 @@
+{ lib, ... }:
 {
   vim = {
     mini = {
       ai.enable = true;
+      bracketed.enable = true;
       bufremove.enable = true;
       comment.enable = true;
       files.enable = true;
@@ -34,6 +36,7 @@
               pattern = "%f[%w]()NOTE()%f[%W]";
               group = "MiniHipatternsNote";
             };
+            hex_color = lib.generators.mkLuaInline "require('mini.hipatterns').gen_highlighter.hex_color()";
           };
         };
       };
