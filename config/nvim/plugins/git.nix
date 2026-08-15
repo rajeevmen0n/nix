@@ -1,29 +1,62 @@
 {
-  vim.git = {
-    enable = true;
-
-    gitsigns = {
+  vim = {
+    git = {
       enable = true;
-      mappings = {
-        # Navigation
-        nextHunk = "]h";
-        previousHunk = "[h";
 
-        # Actions
-        stageHunk = "<leader>hs";
-        resetHunk = "<leader>hr";
-        undoStageHunk = "<leader>hu";
-        previewHunk = "<leader>hp";
+      gitsigns = {
+        enable = true;
+        mappings = {
+          # Navigation
+          nextHunk = "]h";
+          previousHunk = "[h";
 
-        stageBuffer = "<leader>hS";
-        resetBuffer = "<leader>hR";
+          # Actions
+          stageHunk = "<leader>hs";
+          resetHunk = "<leader>hr";
+          undoStageHunk = "<leader>hu";
+          previewHunk = "<leader>hp";
 
-        blameLine = "<leader>hb";
-        toggleBlame = "<leader>hB";
+          stageBuffer = "<leader>hS";
+          resetBuffer = "<leader>hR";
 
-        diffThis = "<leader>hd";
-        diffProject = "<leader>hD";
+          blameLine = "<leader>hb";
+          toggleBlame = "<leader>hB";
+
+          diffThis = "<leader>hd";
+          diffProject = "<leader>hD";
+        };
       };
     };
+
+    keymaps = [
+      {
+        mode = "v";
+        key = "<leader>hs";
+        action = ''
+          function()
+            require("gitsigns").stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
+          end
+        '';
+        lua = true;
+        desc = "Stage hunk";
+      }
+      {
+        mode = "v";
+        key = "<leader>hr";
+        action = ''
+          function()
+            require("gitsigns").reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
+          end
+        '';
+        lua = true;
+        desc = "Reset hunk";
+      }
+      {
+        mode = [ "o" "x" ];
+        key = "ih";
+        action = ":<C-U>Gitsigns select_hunk<CR>";
+        desc = "Gitsigns select hunk";
+      }
+    ];
   };
 }

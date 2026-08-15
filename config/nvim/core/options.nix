@@ -19,9 +19,15 @@
       ignorecase = true; # ignore case when searching
       smartcase = true; # assume case-sensitive when mixed case search
 
+      # # cursor settings
+      cursorline = true;
+
       # # terminal color setup
       termguicolors = true;
       signcolumn = "yes"; # show sign column so that text doesn't shift
+
+      # # backspace
+      backspace = "indent,eol,start"; # allow backspace on indent, end of line or insert mode start position
 
       # # split windows
       splitright = true; # split vertical window to the right

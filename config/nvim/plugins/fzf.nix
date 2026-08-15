@@ -5,8 +5,14 @@
       {
         mode = "n";
         key = "<leader>ff";
-        action = "<cmd>Fzf files <CR>";
+        action = "<cmd>Fzf files<CR>";
         desc = "FzfLua files";
+      }
+      {
+        mode = "n";
+        key = "<leader>fg";
+        action = "<cmd>Fzf git_status<CR>";
+        desc = "Fzf git modified files";
       }
       {
         mode = "n";

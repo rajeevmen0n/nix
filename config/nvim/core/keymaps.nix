@@ -32,7 +32,7 @@
     {
       mode = "n";
       key = "<leader>se";
-      action = "<C-w> = ";
+      action = "<C-w>=";
       desc = "Make splits equal size";
     }
     {
@@ -101,16 +101,15 @@
     }
     {
       mode = "n";
-      key = "<leader>qa";
+      key = "<leader>qi";
       action = "<cmd>qa<CR>";
-      desc = "Exit vim;
-      unless there are some buffers which have been changed";
+      desc = "Exit vim, unless there are some buffers which have been changed";
     }
     {
       mode = "n";
-      key = "<leader>qi";
+      key = "<leader>qa";
       action = "<cmd>qa!<CR>";
-      desc = "Exit vim; all changes are lost";
+      desc = "Exit vim, all changes are lost";
     }
   ];
 }
