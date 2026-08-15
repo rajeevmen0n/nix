@@ -11,6 +11,10 @@
       window-padding-y = 9;
       mouse-hide-while-typing = true;
 
+      # Cursor settings
+      cursor-style = "bar";
+      cursor-style-blink = true;
+
       # Font
       font-family = "JetBrains Mono";
       font-size = 12;

@@ -37,6 +37,14 @@
       if [ -f ~/.cache/wal/sequences ]; then
         (cat ~/.cache/wal/sequences &)
       fi
+
+      # Ensure cursor is always restored to blinking line on prompt and after program exits (e.g. neovim)
+      _set_cursor_beam() {
+        printf '\033[5 q'
+      }
+      autoload -Uz add-zsh-hook
+      add-zsh-hook precmd _set_cursor_beam
+      _set_cursor_beam
     '';
 
     shellAliases = {
