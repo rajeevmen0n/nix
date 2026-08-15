@@ -18,6 +18,9 @@
     };
 
     initContent = ''
+      export HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_FOUND=none
+      export HISTORY_SUBSTRING_SEARCH_HIGHLIGHT_NOT_FOUND=none
+
       history-substring-search-up-prefixed(){
         HISTORY_SUBSTRING_SEARCH_ENSURE_UNIQUE=1 HISTORY_SUBSTRING_SEARCH_PREFIXED=1 history-substring-search-up
       }
