@@ -2,6 +2,7 @@
   imports = [
     ./core/keymaps.nix
     ./core/options.nix
+    ./core/workspace.nix
 
     ./plugins/auto-session.nix
     ./plugins/colorscheme.nix

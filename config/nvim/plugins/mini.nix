@@ -60,7 +60,7 @@
           end
         '';
         lua = true;
-        desc = "Close buffer";
+        desc = "Open file explorer";
       }
 
       # Mini misc (maximize/minimize)

@@ -8,7 +8,17 @@
         setupOpts = {
           auto_save = true;
           auto_restore = true;
-          suppressed_dirs = [ "~/" "~/Downloads" "~/Documents" "~/Desktop/" "~/tmp" "/tmp" ];
+          suppressed_dirs = [
+            "~/"
+            "~/Downloads"
+            "~/Documents"
+            "~/Desktop/"
+            "~/tmp"
+            "/tmp"
+          ];
+          post_restore_cmds = [
+            "silent! edit"
+          ];
         };
       };
     };
