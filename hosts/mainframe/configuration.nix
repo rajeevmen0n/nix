@@ -1,5 +1,10 @@
-let
+{
+  lib,
+  pkgs,
+  ...
+}: let
   hosts = import ../../config/hosts.nix;
+  users = import ../../config/users.nix;
 in {
   imports = [
     ./hardware-configuration.nix
@@ -22,6 +27,20 @@ in {
   sops.defaultSopsFile = ./secrets/secrets.yaml;
 
   networking.hostName = hosts.mainframe.hostname;
+
+  nix.settings = {
+    substituters = lib.mkAfter [
+      "https://mainframe.cachix.org"
+    ];
+    trusted-public-keys = lib.mkAfter [
+      "mainframe.cachix.org-1:NZMA0UnbQClWKllDyRVm8dmOB2Zju0ULrLJ8qOmOamQ="
+    ];
+    trusted-users = lib.mkAfter [ "root" users.default.username ];
+  };
+
+  environment.systemPackages = with pkgs; [
+    cachix
+  ];
 
   services.openssh.enable = true;
 

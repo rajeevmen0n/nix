@@ -1,10 +1,10 @@
 {
-  config,
   lib,
   pkgs,
   ...
 }: let
   hosts = import ../../config/hosts.nix;
+  users = import ../../config/users.nix;
 in {
   imports = [
     ./hardware-configuration.nix
@@ -25,7 +25,6 @@ in {
     ../../nixos/hardware/audio.nix
     ../../nixos/hardware/nvidia.nix
 
-    ../../nixos/system/cachix.nix
     ../../nixos/system/hdr.nix
     ../../nixos/system/ios.nix
     ../../nixos/system/limine.nix
@@ -35,6 +34,16 @@ in {
 
   # Hostname
   networking.hostName = hosts.ga605wi.hostname;
+
+  nix.settings = {
+    substituters = lib.mkAfter [ "https://g16-nixos.cachix.org" ];
+    trusted-public-keys = lib.mkAfter [ "g16-nixos.cachix.org-1:JlrHbD35SxKOpf6tnzTVTv6ZYMQYlIcipdXvj2C98Wc=" ];
+    trusted-users = lib.mkAfter [ "root" users.default.username ];
+  };
+
+  environment.systemPackages = with pkgs; [
+    cachix
+  ];
 
   # Known issue, kernel freeze when type c port is used
   boot.blacklistedKernelModules = ["ucsi_acpi"];

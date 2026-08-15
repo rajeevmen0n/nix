@@ -75,7 +75,7 @@ This repository uses a clean, modular Nix Flake layout separating system concern
 ├── nixos/                 # Modular NixOS system modules
 │   ├── desktop/           # Hyprland, Plasma, Greetd display options
 │   ├── hardware/          # Audio (PipeWire), AMD GPU, NVIDIA drivers
-│   ├── system/            # Limine, SOPS, Cachix, Podman, Plymouth, HDR
+│   ├── system/            # Limine, SOPS, Podman, Plymouth, HDR
 │   ├── gaming.nix         # Gaming utilities and Steam configuration
 │   └── server.nix         # Server base configuration
 └── home/                  # Home Manager modules
