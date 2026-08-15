@@ -1,6 +1,7 @@
 # 🧊 My Nix Configuration
 
-![Build Status](https://github.com/rajeevmen0n/nix/actions/workflows/ga605.yml/badge.svg)
+![GA605WI Build](https://github.com/rajeevmen0n/nix/actions/workflows/ga605.yml/badge.svg)
+![Mainframe Build](https://github.com/rajeevmen0n/nix/actions/workflows/mainframe.yml/badge.svg)
 
 Declarative, reproducible system configuration for personal machines running [NixOS](https://nixos.org) and [Home Manager](https://github.com/nix-community/home-manager) — optimized for gaming laptops, self-hosted home servers, and daily development.
 
