@@ -14,5 +14,11 @@ in {
     arch = "aarch64";
     user = users.default;
   };
+
+  macos = {
+    dir = "macos";
+    arch = "aarch64-darwin";
+    user = users.default;
+  };
 }
 

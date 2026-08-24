@@ -12,7 +12,8 @@ Declarative, reproducible system configuration for personal machines running [Ni
 | Host | System Type | Architecture | Role / Hardware Specs |
 | :--- | :--- | :--- | :--- |
 | **`matrix`** (`ga605wi`) | Asus ROG G16 (GA605WI) | `x86_64-linux` | **Primary Laptop** — Gaming laptop & daily driver workstation |
-| **`mainframe`** | Oracle Cloud Free Tier VM | `aarch64` | **Infrastructure Server** — Ampere A1 Compute (4 OCPUs, 24 GB RAM, 90 GB Storage) |
+| **`mainframe`** | Oracle Cloud Free Tier VM | `aarch64-linux` | **Infrastructure Server** — Ampere A1 Compute (4 OCPUs, 24 GB RAM, 90 GB Storage) |
+| **`macos`** | Generic macOS Config | `aarch64-darwin` | **Portable macOS Setup** — Shared config applied across all personal Macs via [nix-darwin](https://github.com/nix-darwin/nix-darwin) + Home Manager |
 
 ---
 
@@ -36,6 +37,12 @@ Declarative, reproducible system configuration for personal machines running [Ni
 - **Hybrid GPU Switching**: NVIDIA driver integration paired with `supergfxd` and `asusd` for on-demand GPU switching.
 - **Display & Audio Handling**: HDR display support under Plasma, `hypr-monitor-toggle` script for dynamic external display switching on lid events, and PipeWire audio tuned with EasyEffects DSP.
 - **Gaming Ready**: Steam, Wine/Proton compatibility stack.
+
+### 🍎 Generic macOS Config (`macos`)
+- **nix-darwin**: Declarative macOS system configuration shared across all personal devices, built with a reusable `mkDarwinConfigurations` helper in the flake.
+- **Homebrew Integration**: Declarative cask management (`caffeine`, `Discord`, `Ghostty`, `Chrome`, `Spotify`, `VLC`, `WhatsApp`) with auto-update, upgrade, and cleanup on activation.
+- **macOS Defaults**: Dock tweaks (autohide, no recents, genie effect) and keyboard key mapping.
+- **Shared Home Manager Modules**: Reuses the common shell, fonts, etc.
 
 ### 🖥️ Desktop Environments & Aesthetics
 - **Hyprland (Wayland)**:
@@ -67,12 +74,13 @@ This repository uses a clean, modular Nix Flake layout separating system concern
 ├── flake.nix              # Main flake entrypoint (NixOS 26.05 + unstable overlays)
 ├── .sops.yaml             # SOPS encryption keys and path regex rules
 ├── config/                # Shared metadata & user definitions
-│   ├── hosts.nix          # Host definitions (matrix, mainframe)
+│   ├── hosts.nix          # Host definitions (matrix, mainframe, macos)
 │   ├── users.nix          # User metadata
 │   └── nvim/              # NVF Neovim configuration & plugins
 ├── hosts/                 # Per-host configurations
 │   ├── ga605wi/           # Laptop host (matrix) configuration, DSDT patches & hardware modules
-│   └── mainframe/         # Server host (mainframe) configuration, web services & secrets
+│   ├── mainframe/         # Server host (mainframe) configuration, web services & secrets
+│   └── macos/             # Generic macOS (darwin) configuration for all Macs
 ├── nixos/                 # Modular NixOS system modules
 │   ├── desktop/           # Hyprland, Plasma, Greetd display options
 │   ├── hardware/          # Audio (PipeWire), AMD GPU, NVIDIA drivers
@@ -107,5 +115,11 @@ sudo nixos-rebuild switch --flake .#matrix
 
 # Server host (mainframe)
 sudo nixos-rebuild switch --flake .#mainframe
+```
+
+For macOS hosts, rebuild with `darwin-rebuild`:
+
+```bash
+darwin-rebuild switch --flake .#macos
 ```
 

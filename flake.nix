@@ -4,6 +4,10 @@
   inputs = {
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
+    nix-darwin = {
+      url = "github:nix-darwin/nix-darwin/nix-darwin-26.05";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     home-manager = {
       url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -101,6 +105,30 @@
         }
       );
 
+      mkDarwinConfigurations =
+        {
+          host,
+          nixpkgs,
+          home-manager,
+          nix-darwin,
+          modules ? [ ],
+          homeManagerModules ? [ ],
+          overlays ? [ ],
+        }:
+        nix-darwin.lib.darwinSystem {
+          system = host.arch;
+          modules = [
+            ./hosts/${host.dir}/configuration.nix
+            { nixpkgs.overlays = overlays; }
+            home-manager.darwinModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.users."${host.user.username}" = import ./hosts/${host.dir}/home.nix;
+              home-manager.sharedModules = homeManagerModules;
+            }
+          ] ++ modules;
+        };
+
     in
 
     {
@@ -120,6 +148,15 @@
         home-manager = inputs.home-manager;
         modules = [ inputs.nix-minecraft.nixosModules.minecraft-servers ];
         overlays = [ neovimOverlay unstableOverlay inputs.nix-minecraft.overlay ];
+      };
+
+      # Generic macOS config
+      darwinConfigurations."macos" = mkDarwinConfigurations {
+        host = hosts.macos;
+        nixpkgs = inputs.nixpkgs;
+        home-manager = inputs.home-manager;
+        nix-darwin = inputs.nix-darwin;
+        overlays = [ neovimOverlay unstableOverlay ];
       };
 
       # Sample config for non nix-os systems using home manager
