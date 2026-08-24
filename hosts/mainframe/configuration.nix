@@ -17,7 +17,6 @@ in {
     ./nixos/headscale.nix
     ./nixos/headplane.nix
 
-    ../../nixos/ai.nix
     ../../nixos/server.nix
     ../../nixos/system/podman.nix
     ../../nixos/system/sops.nix
