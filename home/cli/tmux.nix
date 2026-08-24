@@ -7,6 +7,8 @@
     mouse = true;
     terminal = "tmux-256color";
     extraConfig = ''
+      set -g extended-keys on
+
       set -g focus-events on
       set -ga terminal-overrides ',*:Ss=\E[%p1%d q:Se=\E[5 q'
 
