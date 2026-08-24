@@ -13,8 +13,8 @@
     history.save = 100000;
     historySubstringSearch = {
       enable = true;
-      searchUpKey = "$key[Up]";
-      searchDownKey = "$key[Down]";
+      searchUpKey = "^[[A";
+      searchDownKey = "^[[B";
     };
 
     initContent = ''
