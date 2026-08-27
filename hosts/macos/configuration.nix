@@ -37,12 +37,12 @@ in
       cleanup = "uninstall";
     };
     casks = [
-      "caffeine"
       "discord"
       "ghostty"
       "google-chrome"
       "spotify"
       "vlc"
+      "vorssaint"
       "whatsapp"
     ];
   };
