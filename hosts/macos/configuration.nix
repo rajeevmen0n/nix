@@ -7,6 +7,7 @@ let
   users = import ../../config/users.nix;
 in
 {
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   nixpkgs.config.allowUnfree = true;
 
