@@ -15,28 +15,17 @@ let
       spec = "@openai/codex@latest";
     }
   ];
+  npxAppPackages = map (app:
+    pkgs.writeShellScriptBin app.name ''
+      # Automatically resolves and runs the latest version on launch
+      exec ${pkgs.nodejs_24}/bin/npx -y ${app.spec} "$@"
+    '') npxApps;
 in
 {
   home = {
     packages = with pkgs; [
       nodejs_24
-    ];
-
-    file = builtins.listToAttrs (map (app: {
-      name = ".local/bin/${app.name}";
-      value = {
-        executable = true;
-        text = ''
-          #!/usr/bin/env bash
-          # Automatically resolves and runs the latest version on launch
-          exec ${pkgs.nodejs_24}/bin/npx -y ${app.spec} "$@"
-        '';
-      };
-    }) npxApps);
-
-    sessionPath = [
-      "$HOME/.local/bin"
-    ];
+    ] ++ npxAppPackages;
 
     sessionVariables = {
       NPM_CONFIG_UPDATE_NOTIFIER = "false";
