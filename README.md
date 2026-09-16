@@ -12,6 +12,7 @@ Declarative, reproducible system configuration for personal machines running [Ni
 | Host | System Type | Architecture | Role / Hardware Specs |
 | :--- | :--- | :--- | :--- |
 | **`matrix`** (`ga605wi`) | Asus ROG G16 (GA605WI) | `x86_64-linux` | **Primary Laptop** — Gaming laptop & daily driver workstation |
+| **`matrix-wsl`** (`ga605wi-wsl`) | NixOS on WSL2 | `x86_64-linux` | **Windows Dev Environment** — NixOS running under WSL2 on the same laptop |
 | **`mainframe`** | Oracle Cloud Free Tier VM | `aarch64-linux` | **Infrastructure Server** — Ampere A1 Compute (4 OCPUs, 24 GB RAM, 90 GB Storage) |
 | **`macos`** | Generic macOS Config | `aarch64-darwin` | **Portable macOS Setup** — Shared config applied across all personal Macs via [nix-darwin](https://github.com/nix-darwin/nix-darwin) + Home Manager |
 
@@ -44,6 +45,11 @@ Declarative, reproducible system configuration for personal machines running [Ni
 - **macOS Defaults**: Dock tweaks (autohide, no recents, genie effect) and keyboard key mapping.
 - **Shared Home Manager Modules**: Reuses the common shell, fonts, etc.
 
+### 🪟 NixOS on WSL (`matrix-wsl`)
+- **[NixOS-WSL](https://github.com/nix-community/NixOS-WSL)**: Full NixOS running as a WSL2 distribution on the laptop's Windows install.
+- **Windows GPU Passthrough**: Host GPU driver available inside the distro.
+- **Home Manager Subset**: Shared shell, CLI, and development tooling without the desktop stack.
+
 ### 🖥️ Desktop Environments & Aesthetics
 - **Hyprland (Wayland)**:
   - Pywal-based dynamic color generation across system components.
@@ -74,12 +80,13 @@ This repository uses a clean, modular Nix Flake layout separating system concern
 ├── flake.nix              # Main flake entrypoint (NixOS 26.05 + unstable overlays)
 ├── .sops.yaml             # SOPS encryption keys and path regex rules
 ├── config/                # Shared metadata & user definitions
-│   ├── hosts.nix          # Host definitions (matrix, mainframe, macos)
+│   ├── hosts.nix          # Host definitions (matrix, matrix-wsl, mainframe, macos)
 │   ├── users.nix          # User metadata
 │   └── nvim/              # NVF Neovim configuration & plugins
 ├── hosts/                 # Per-host configurations
 │   ├── ga605wi/           # Laptop host (matrix) configuration, DSDT patches & hardware modules
 │   ├── mainframe/         # Server host (mainframe) configuration, web services & secrets
+│   ├── wsl/               # WSL2 host (matrix-wsl) configuration
 │   └── macos/             # Generic macOS (darwin) configuration for all Macs
 ├── nixos/                 # Modular NixOS system modules
 │   ├── desktop/           # Hyprland, Plasma, Greetd display options
@@ -115,6 +122,9 @@ sudo nixos-rebuild switch --flake .#matrix
 
 # Server host (mainframe)
 sudo nixos-rebuild switch --flake .#mainframe
+
+# WSL host (matrix-wsl)
+sudo nixos-rebuild switch --flake .#matrix-wsl
 ```
 
 For macOS hosts, rebuild with `darwin-rebuild`:

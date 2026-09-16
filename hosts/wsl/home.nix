@@ -1,0 +1,15 @@
+let
+  users = import ../../config/users.nix;
+in {
+  imports = [
+    ../../home/ai.nix
+    ../../home/shell.nix
+    ../../home/cli/btop.nix
+  ];
+
+  home = {
+    username = users.default.username;
+    homeDirectory = "/home/${users.default.username}";
+    stateVersion = "26.05";
+  };
+}

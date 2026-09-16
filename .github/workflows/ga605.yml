@@ -44,3 +44,11 @@ jobs:
       - name: Push to Cachix
         run: |
           cachix push g16-nixos result
+
+      - name: Build WSL system
+        run: |
+          nix build .#nixosConfigurations.matrix-wsl.config.system.build.toplevel --out-link result-wsl
+
+      - name: Push WSL to Cachix
+        run: |
+          cachix push g16-nixos result-wsl

@@ -8,6 +8,13 @@ in {
     user = users.default;
   };
 
+  ga605wi-wsl = {
+    hostname = "matrix-wsl";
+    dir = "wsl";
+    arch = "x86_64-linux";
+    user = users.default;
+  };
+
   mainframe = {
     hostname = "mainframe";
     dir = "mainframe";

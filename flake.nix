@@ -23,6 +23,10 @@
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixos-wsl = {
+      url = "github:nix-community/NixOS-WSL";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -138,6 +142,15 @@
         nixpkgs = inputs.nixpkgs;
         home-manager = inputs.home-manager;
         homeManagerModules = [ inputs.plasma-manager.homeModules.plasma-manager ];
+        overlays = [ neovimOverlay unstableOverlay ];
+      };
+
+      # Laptop WSL NixOS config
+      nixosConfigurations."${hosts.ga605wi-wsl.hostname}" = mkNixOSConfigurations {
+        host = hosts.ga605wi-wsl;
+        nixpkgs = inputs.nixpkgs;
+        home-manager = inputs.home-manager;
+        modules = [ inputs.nixos-wsl.nixosModules.default ];
         overlays = [ neovimOverlay unstableOverlay ];
       };
 
