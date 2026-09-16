@@ -84,9 +84,9 @@ This repository uses a clean, modular Nix Flake layout separating system concern
 ├── nixos/                 # Modular NixOS system modules
 │   ├── desktop/           # Hyprland, Plasma, Greetd display options
 │   ├── hardware/          # Audio (PipeWire), AMD GPU, NVIDIA drivers
-│   ├── system/            # Limine, SOPS, Podman, Plymouth, HDR
+│   ├── system/            # Limine, systemd-boot, networking, SOPS, Podman, Plymouth, HDR
 │   ├── gaming.nix         # Gaming utilities and Steam configuration
-│   └── server.nix         # Server base configuration
+│   └── base.nix           # Shared base configuration for all NixOS hosts
 └── home/                  # Home Manager modules
     ├── apps/              # Desktop apps (Ghostty, WezTerm, Media, Minecraft)
     ├── cli/               # Terminal apps (Zsh, Git, Tmux, Starship, Btop, Fzf)

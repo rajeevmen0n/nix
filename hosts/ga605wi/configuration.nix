@@ -28,6 +28,7 @@ in {
     ../../nixos/system/hdr.nix
     ../../nixos/system/ios.nix
     ../../nixos/system/limine.nix
+    ../../nixos/system/networking.nix
     ../../nixos/system/plymouth.nix
     ../../nixos/system/users.nix
   ];
@@ -40,10 +41,6 @@ in {
     trusted-public-keys = lib.mkAfter [ "g16-nixos.cachix.org-1:JlrHbD35SxKOpf6tnzTVTv6ZYMQYlIcipdXvj2C98Wc=" ];
     trusted-users = lib.mkAfter [ "root" users.default.username ];
   };
-
-  environment.systemPackages = with pkgs; [
-    cachix
-  ];
 
   # Known issue, kernel freeze when type c port is used
   boot.blacklistedKernelModules = ["ucsi_acpi"];

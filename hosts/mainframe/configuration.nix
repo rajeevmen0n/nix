@@ -1,6 +1,5 @@
 {
   lib,
-  pkgs,
   ...
 }: let
   hosts = import ../../config/hosts.nix;
@@ -17,9 +16,11 @@ in {
     ./nixos/headscale.nix
     ./nixos/headplane.nix
 
-    ../../nixos/server.nix
+    ../../nixos/base.nix
+    ../../nixos/system/networking.nix
     ../../nixos/system/podman.nix
     ../../nixos/system/sops.nix
+    ../../nixos/system/systemd-boot.nix
     ../../nixos/system/users.nix
   ];
 
@@ -36,10 +37,6 @@ in {
     ];
     trusted-users = lib.mkAfter [ "root" users.default.username ];
   };
-
-  environment.systemPackages = with pkgs; [
-    cachix
-  ];
 
   services.openssh.enable = true;
 

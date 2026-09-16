@@ -1,6 +1,6 @@
 {pkgs, ...}: {
   imports = [
-    ./server.nix
+    ./base.nix
   ];
 
   # Install firefox.

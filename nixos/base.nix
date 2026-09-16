@@ -1,11 +1,4 @@
 {pkgs, ...}: {
-  # Enable systemd-boot bootloader
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-
-  # Enable NetworkManager
-  networking.networkmanager.enable = true;
-
   # Set time zone.
   time.timeZone = "America/Los_Angeles";
 
@@ -42,6 +35,7 @@
 
   # Basic tools
   environment.systemPackages = with pkgs; [
+    cachix
     p7zip
     tree
     unzip
