@@ -2,6 +2,7 @@ let
   users = import ../../config/users.nix;
 in {
   imports = [
+    ../../home/ai.nix
     ../../home/shell.nix
     ../../home/cli/btop.nix
   ];
