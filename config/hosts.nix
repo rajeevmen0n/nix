@@ -18,7 +18,7 @@ in {
   mainframe = {
     hostname = "mainframe";
     dir = "mainframe";
-    arch = "aarch64";
+    arch = "aarch64-linux";
     user = users.default;
   };
 
