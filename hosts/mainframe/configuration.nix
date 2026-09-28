@@ -8,6 +8,7 @@ in {
   imports = [
     ./hardware-configuration.nix
 
+    ./nixos/anisette.nix
     ./nixos/authelia.nix
     ./nixos/ddns.nix
     ./nixos/lldap.nix
@@ -18,7 +19,6 @@ in {
 
     ../../nixos/base.nix
     ../../nixos/system/networking.nix
-    ../../nixos/system/podman.nix
     ../../nixos/system/sops.nix
     ../../nixos/system/systemd-boot.nix
     ../../nixos/system/users.nix

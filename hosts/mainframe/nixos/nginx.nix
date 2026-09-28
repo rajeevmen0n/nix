@@ -96,6 +96,15 @@ in
         useACMEHost = domain;
       };
 
+      "anisette.${domain}" = {
+        forceSSL = true;
+        useACMEHost = domain;
+        locations."/" = {
+          proxyPass = "http://127.0.0.1:6969";
+          proxyWebsockets = true;
+        };
+      };
+
       "headscale.${domain}" = mkProxyVhost {
         proxyPass = "http://127.0.0.1:8080";
       };

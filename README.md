@@ -32,6 +32,7 @@ Declarative, reproducible system configuration for personal machines running [Ni
 - **Cloudflare DDNS & DNS-01 ACME**: `ddclient` DDNS synchronization across domains and automated Cloudflare DNS-01 ACME wildcard certificate issuance using SOPS secrets.
 - **Tailscale & Exit Node**: Automatic node registration and pre-approved default exit node routing (`0.0.0.0/0`, `::/0`) on `mainframe`.
 - **Minecraft Server**: Nix-managed server instance powered by [`nix-minecraft`](https://github.com/Infinidoge/nix-minecraft).
+- **Anisette Server**: Docker-hosted [`anisette-v3-server`](https://github.com/Dadoum/anisette-v3-server) for AltStore Classic's Remote AltServer mode, exposed through Nginx over HTTPS.
 
 ### 🎮 Gaming & ROG Hardware Optimizations (`matrix`)
 - **DSDT ACPI Patches**: Custom DSDT binary patches and dynamic iGPU PCI path detection to resolve ACPI issues on ROG hardware.
