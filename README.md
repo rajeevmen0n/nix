@@ -33,6 +33,7 @@ Declarative, reproducible system configuration for personal machines running [Ni
 - **Tailscale & Exit Node**: Automatic node registration and pre-approved default exit node routing (`0.0.0.0/0`, `::/0`) on `mainframe`.
 - **Minecraft Server**: Nix-managed server instance powered by [`nix-minecraft`](https://github.com/Infinidoge/nix-minecraft).
 - **Anisette Server**: Docker-hosted [`anisette-v3-server`](https://github.com/Dadoum/anisette-v3-server) for AltStore Classic's Remote AltServer mode, exposed through Nginx over HTTPS.
+- **God's Eye View**: Nix-packaged [`gods-eye-view`](https://github.com/bilawalsidhu/gods-eye-view) Cesium globe with live flight, ship, fire, and traffic feeds, served behind Authelia through Nginx with provider keys supplied from a SOPS-encrypted dotenv file.
 
 ### 🎮 Gaming & ROG Hardware Optimizations (`matrix`)
 - **DSDT ACPI Patches**: Custom DSDT binary patches and dynamic iGPU PCI path detection to resolve ACPI issues on ROG hardware.

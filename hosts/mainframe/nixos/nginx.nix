@@ -118,6 +118,14 @@ in
         };
       };
 
+      "gev.${domain}" = mkProxyVhost {
+        proxyPass = "http://127.0.0.1:4173";
+        extraConfig = autheliaProtectedConfig;
+        extraLocations = {
+          "/internal/authelia/authz" = autheliaAuthLocation;
+        };
+      };
+
       "auth.${domain}" = mkProxyVhost {
         proxyPass = "http://127.0.0.1:9091";
         extraConfig = forwardAuthHeaders;
