@@ -11,6 +11,6 @@
     zone = "icyfire.dev";
     username = "token";
     passwordFile = config.sops.secrets.cloudflare.path;
-    domains = [ "icyfire.dev" "headscale.icyfire.dev" "auth.icyfire.dev" "anisette.icyfire.dev" "gev.icyfire.dev" ];
+    domains = [ "icyfire.dev" "headscale.icyfire.dev" "auth.icyfire.dev" "anisette.icyfire.dev" "gev.icyfire.dev" "needledrop.icyfire.dev" ];
   };
 }

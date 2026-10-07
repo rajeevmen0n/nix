@@ -14,6 +14,7 @@ in {
     ./nixos/gods-eye-view.nix
     ./nixos/lldap.nix
     ./nixos/minecraft.nix
+    ./nixos/needledrop.nix
     ./nixos/nginx.nix
     ./nixos/headscale.nix
     ./nixos/headplane.nix

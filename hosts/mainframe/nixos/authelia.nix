@@ -65,6 +65,17 @@ in
             policy = "deny";
           }
           {
+            domain = [ "needledrop.${domain}" ];
+            resources = [ "^/admin($|/)" "^/api/admin($|/)" ];
+            subject = [ [ "group:needledrop_admin" ] ];
+            policy = "one_factor";
+          }
+          {
+            domain = [ "needledrop.${domain}" ];
+            resources = [ "^/admin($|/)" "^/api/admin($|/)" ];
+            policy = "deny";
+          }
+          {
             domain = [ "*.${domain}" "${domain}" ];
             policy = "one_factor";
           }

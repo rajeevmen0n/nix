@@ -126,6 +126,33 @@ in
         };
       };
 
+      # Needledrop: nginx serves the built SPA; the Rust API stays on loopback.
+      # The public API routes and their rate limits are in needledrop.nix.
+      "needledrop.${domain}" = mkProxyVhost {
+        proxyPass = "http://127.0.0.1:4811";
+        extraLocations = {
+          "/internal/authelia/authz" = autheliaAuthLocation;
+          "= /admin" = {
+            proxyPass = "http://127.0.0.1:4811";
+            proxyWebsockets = true;
+            extraConfig = autheliaProtectedConfig;
+          };
+          "^~ /admin/" = {
+            proxyPass = "http://127.0.0.1:4811";
+            proxyWebsockets = true;
+            extraConfig = autheliaProtectedConfig;
+          };
+          "= /api/admin" = {
+            proxyPass = "http://127.0.0.1:4810";
+            extraConfig = autheliaProtectedConfig;
+          };
+          "^~ /api/admin/" = {
+            proxyPass = "http://127.0.0.1:4810";
+            extraConfig = autheliaProtectedConfig;
+          };
+        };
+      };
+
       "auth.${domain}" = mkProxyVhost {
         proxyPass = "http://127.0.0.1:9091";
         extraConfig = forwardAuthHeaders;
