@@ -52,15 +52,6 @@ in
       };
 
       # TODO(refactor): the vhosts below move into their service modules.
-      "${subdomains.headplane}" = mkProxyVhost {
-        proxyPass = "http://127.0.0.1:3000";
-        extraConfig = autheliaProtectedConfig;
-        extraLocations = {
-          "/internal/authelia/authz" = autheliaAuthLocation;
-          "= /".return = "302 https://${subdomains.headplane}/admin";
-        };
-      };
-
       "${subdomains.gev}" = mkProxyVhost {
         proxyPass = "http://127.0.0.1:4173";
         extraConfig = autheliaProtectedConfig;

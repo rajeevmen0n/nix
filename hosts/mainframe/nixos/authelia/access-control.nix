@@ -13,15 +13,6 @@ in
       rules = [
         # TODO(refactor): these service rules move into their service modules.
         {
-          domain = [ subdomains.headplane ];
-          subject = [ ["group:lldap_admin"] ["user:admin"] ];
-          policy = "one_factor";
-        }
-        {
-          domain = [ subdomains.headplane ];
-          policy = "deny";
-        }
-        {
           domain = [ subdomains.needledrop ];
           resources = [ "^/admin($|/)" "^/api/admin($|/)" ];
           subject = [ [ "group:needledrop_admin" ] ];
