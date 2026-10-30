@@ -19,6 +19,6 @@ in
     username = "token";
     passwordFile = config.sops.secrets.cloudflare.path;
     # TODO(refactor): these move into their service modules.
-    domains = with subdomains; [ domain headscale gev needledrop ];
+    domains = with subdomains; [ domain gev needledrop ];
   };
 }

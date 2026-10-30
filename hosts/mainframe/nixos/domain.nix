@@ -13,6 +13,9 @@ rec {
     needledrop = "needledrop.${domain}";
   };
 
+  # MagicDNS base domain of the tailnet (not a web host)
+  tailnet = "tailnet.${domain}";
+
   # LDAP directory root, e.g. dc=ldap,dc=icyfire,dc=dev
   ldapBaseDn = builtins.concatStringsSep "," (
     map (part: "dc=${part}") ([ "ldap" ] ++ builtins.filter builtins.isString (builtins.split "\\." domain))

@@ -52,10 +52,6 @@ in
       };
 
       # TODO(refactor): the vhosts below move into their service modules.
-      "${subdomains.headscale}" = mkProxyVhost {
-        proxyPass = "http://127.0.0.1:8080";
-      };
-
       "${subdomains.headplane}" = mkProxyVhost {
         proxyPass = "http://127.0.0.1:3000";
         extraConfig = autheliaProtectedConfig;

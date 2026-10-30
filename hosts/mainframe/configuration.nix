@@ -16,7 +16,7 @@ in {
     ./nixos/minecraft.nix
     ./nixos/needledrop.nix
     ./nixos/nginx.nix
-    ./nixos/headscale.nix
+    ./nixos/headscale
     ./nixos/headplane.nix
 
     ../../nixos/base.nix

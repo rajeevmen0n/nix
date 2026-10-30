@@ -12,20 +12,8 @@ in
       allowed_origins_from_client_redirect_uris = true;
     };
 
-    # TODO(refactor): these clients move into their service modules.
+    # TODO(refactor): this client moves into its service module.
     clients = [
-      {
-        client_id = "headscale";
-        client_name = "Headscale";
-        client_secret = "$pbkdf2-sha512$310000$ncYx0TRFSofvssJKZHc/dQ$ISpBlSFuE3tGANyVhZzL0ELTv0s8FIjGFo6J/SqE/0n1OkZPqJPlHCqbBgAHeJzhaRAhHXSWok6.MsP6HnVdZg";
-        authorization_policy = "one_factor";
-        require_pkce = true;
-        pkce_challenge_method = "S256";
-        redirect_uris = [
-          "https://${subdomains.headscale}/oidc/callback"
-        ];
-        scopes = [ "openid" "profile" "email" "groups" ];
-      }
       {
         client_id = "headplane";
         client_name = "Headplane";

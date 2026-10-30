@@ -1,86 +1,20 @@
+# This host's own tailscale node, joined to the local Headscale.
 { config, pkgs, ... }:
+
+let
+  inherit (import ../domain.nix) subdomains;
+  loginServer = "https://${subdomains.headscale}";
+in
 {
-  sops.secrets."headscale_noise_private_key" = {
-    owner = "headscale";
-    group = "headscale";
-  };
-
-  sops.secrets."headscale_derp_private_key" = {
-    owner = "headscale";
-    group = "headscale";
-  };
-
-  sops.secrets."headscale_oidc_client_secret" = {
-    owner = "headscale";
-    group = "headscale";
-  };
-
   services.tailscale = {
     enable = true;
 
     useRoutingFeatures = "server";
 
     extraUpFlags = [
-      "--login-server=https://headscale.icyfire.dev"
+      "--login-server=${loginServer}"
       "--advertise-exit-node"
     ];
-  };
-
-  services.headscale = {
-    enable = true;
-
-    address = "127.0.0.1";
-    port = 8080;
-
-    settings = {
-      server_url = "https://headscale.icyfire.dev";
-
-      oidc = {
-        issuer = "https://auth.icyfire.dev";
-        client_id = "headscale";
-        client_secret_path = config.sops.secrets.headscale_oidc_client_secret.path;
-        scope = [
-          "openid"
-          "profile"
-          "email"
-          "groups"
-        ];
-        pkce = {
-          enabled = true;
-          method = "S256";
-        };
-      };
-
-      noise = {
-        private_key_path = config.sops.secrets.headscale_noise_private_key.path;
-      };
-
-      dns = {
-        magic_dns = true;
-        base_domain = "tailnet.icyfire.dev";
-        override_local_dns = true;
-        nameservers = {
-          global = [
-            "1.1.1.1"
-            "8.8.8.8"
-          ];
-        };
-      };
-
-      derp = {
-        urls = [ ];
-        auto_update_enabled = false;
-
-        server = {
-          enabled = true;
-          region_id = 999;
-          region_code = "icyfire";
-          region_name = "Icyfire Local Relay";
-          stun_listen_addr = "0.0.0.0:3478";
-          private_key_path = config.sops.secrets.headscale_derp_private_key.path;
-        };
-      };
-    };
   };
 
   systemd.services.tailscale-autokey = {
@@ -122,7 +56,7 @@
         KEY=$(headscale preauthkeys create --user "$USER_ID" --expiration 24h -o json | jq -r 'if type=="object" then .key else . end')
 
         echo "Logging mainframe into Headscale..."
-        tailscale up --login-server=https://headscale.icyfire.dev --authkey "$KEY" --advertise-exit-node
+        tailscale up --login-server=${loginServer} --authkey "$KEY" --advertise-exit-node
         sleep 2
       fi
 
@@ -141,6 +75,4 @@
       RemainAfterExit = true;
     };
   };
-
-  networking.firewall.allowedUDPPorts = [ 3478 ];
 }
