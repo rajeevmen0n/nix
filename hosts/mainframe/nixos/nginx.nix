@@ -105,11 +105,6 @@ in
         proxyPass = "http://127.0.0.1:9091";
         extraConfig = forwardAuthHeaders;
       };
-
-      "${subdomains.ldap}" = mkProxyVhost {
-        proxyPass = "http://127.0.0.1:17170";
-        extraConfig = forwardAuthHeaders;
-      };
     };
   };
 }

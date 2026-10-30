@@ -12,4 +12,9 @@ rec {
     ldap = "ldap.${domain}";
     needledrop = "needledrop.${domain}";
   };
+
+  # LDAP directory root, e.g. dc=ldap,dc=icyfire,dc=dev
+  ldapBaseDn = builtins.concatStringsSep "," (
+    map (part: "dc=${part}") ([ "ldap" ] ++ builtins.filter builtins.isString (builtins.split "\\." domain))
+  );
 }
