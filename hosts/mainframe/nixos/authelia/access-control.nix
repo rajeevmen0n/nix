@@ -1,37 +1,20 @@
 # Who may reach which host. Rules are matched in order, so the catch-all
-# lives at the end (mkAfter) and every service adds its rules before it.
+# lives at the end (mkAfter) and every service adds its own rules from its own
+# module, ahead of it.
 { lib, ... }:
 
 let
-  inherit (import ../domain.nix) domain subdomains;
+  inherit (import ../domain.nix) domain;
 in
 {
-  services.authelia.instances.main.settings.access_control = lib.mkMerge [
-    {
-      default_policy = "deny";
+  services.authelia.instances.main.settings.access_control = {
+    default_policy = "deny";
 
-      rules = [
-        # TODO(refactor): these service rules move into their service modules.
-        {
-          domain = [ subdomains.needledrop ];
-          resources = [ "^/admin($|/)" "^/api/admin($|/)" ];
-          subject = [ [ "group:needledrop_admin" ] ];
-          policy = "one_factor";
-        }
-        {
-          domain = [ subdomains.needledrop ];
-          resources = [ "^/admin($|/)" "^/api/admin($|/)" ];
-          policy = "deny";
-        }
-      ];
-    }
-    {
-      rules = lib.mkAfter [
-        {
-          domain = [ "*.${domain}" domain ];
-          policy = "one_factor";
-        }
-      ];
-    }
-  ];
+    rules = lib.mkAfter [
+      {
+        domain = [ "*.${domain}" domain ];
+        policy = "one_factor";
+      }
+    ];
+  };
 }

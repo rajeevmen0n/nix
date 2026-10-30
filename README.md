@@ -34,6 +34,7 @@ Declarative, reproducible system configuration for personal machines running [Ni
 - **Minecraft Server**: Nix-managed server instance powered by [`nix-minecraft`](https://github.com/Infinidoge/nix-minecraft).
 - **Anisette Server**: Docker-hosted [`anisette-v3-server`](https://github.com/Dadoum/anisette-v3-server) for AltStore Classic's Remote AltServer mode, exposed through Nginx over HTTPS.
 - **God's Eye View**: Nix-packaged [`gods-eye-view`](https://github.com/bilawalsidhu/gods-eye-view) Cesium globe with live flight, ship, fire, and traffic feeds, served behind Authelia through Nginx with provider keys supplied from a SOPS-encrypted dotenv file.
+- **Needledrop**: Song-guessing game built with a Rust API and a web SPA.
 
 ### 🎮 Gaming & ROG Hardware Optimizations (`matrix`)
 - **DSDT ACPI Patches**: Custom DSDT binary patches and dynamic iGPU PCI path detection to resolve ACPI issues on ROG hardware.

@@ -3,12 +3,7 @@
 { config, ... }:
 
 let
-  inherit (import ./domain.nix) domain subdomains;
-  inherit (import ./lib.nix)
-    autheliaAuthLocation
-    autheliaProtectedConfig
-    mkProxyVhost
-    ;
+  inherit (import ./domain.nix) domain;
 in
 {
   sops.secrets.cloudflare = {};
@@ -49,34 +44,6 @@ in
       "${domain}" = {
         forceSSL = true;
         useACMEHost = domain;
-      };
-
-      # TODO(refactor): the vhosts below move into their service modules.
-      # Needledrop: nginx serves the built SPA; the Rust API stays on loopback.
-      # The public API routes and their rate limits are in needledrop.nix.
-      "${subdomains.needledrop}" = mkProxyVhost {
-        proxyPass = "http://127.0.0.1:4811";
-        extraLocations = {
-          "/internal/authelia/authz" = autheliaAuthLocation;
-          "= /admin" = {
-            proxyPass = "http://127.0.0.1:4811";
-            proxyWebsockets = true;
-            extraConfig = autheliaProtectedConfig;
-          };
-          "^~ /admin/" = {
-            proxyPass = "http://127.0.0.1:4811";
-            proxyWebsockets = true;
-            extraConfig = autheliaProtectedConfig;
-          };
-          "= /api/admin" = {
-            proxyPass = "http://127.0.0.1:4810";
-            extraConfig = autheliaProtectedConfig;
-          };
-          "^~ /api/admin/" = {
-            proxyPass = "http://127.0.0.1:4810";
-            extraConfig = autheliaProtectedConfig;
-          };
-        };
       };
     };
   };
