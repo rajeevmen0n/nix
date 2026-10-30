@@ -1,40 +1,13 @@
 { config, pkgs, ... }:
 let
-  domain = "gev.icyfire.dev";
+  inherit (import ../domain.nix) subdomains;
+  inherit (import ../lib.nix) autheliaAuthLocation autheliaProtectedConfig mkProxyVhost;
+  host = subdomains.gev;
   port = 4173;
   stateDir = "/var/lib/gods-eye-view";
   nodejs = pkgs.nodejs_24;
 
-  # Source + node_modules only. The browser bundle is built at service start so
-  # the client-exposed keys (Google Maps / Cesium ion) never land in the store.
-  gev = pkgs.buildNpmPackage {
-    pname = "gods-eye-view";
-    version = "0.1.1-unstable-2026-09-30";
-
-    src = pkgs.fetchFromGitHub {
-      owner = "bilawalsidhu";
-      repo = "gods-eye-view";
-      rev = "e7707d9a0f34d9fbffc300023c319f95caa5be30";
-      hash = "sha256-VjnHrEg59Ew7fi76oeD/Mx4Tj0Z0yc/6ERL2Ysrooww=";
-    };
-
-    inherit nodejs;
-    npmDepsHash = "sha256-PeShSMMyOhkQlnnAFt5Fo0LzP5/0+tcjsCwfLtpaFIc=";
-
-    env.PUPPETEER_SKIP_DOWNLOAD = "1";
-
-    # vite is a devDependency and is needed at runtime
-    dontNpmBuild = true;
-    dontNpmPrune = true;
-
-    installPhase = ''
-      runHook preInstall
-      rm -rf docs/media
-      mkdir -p $out/lib
-      cp -r . $out/lib/gods-eye-view
-      runHook postInstall
-    '';
-  };
+  gev = import ./package.nix { inherit pkgs nodejs; };
 
   appDir = "${gev}/lib/gods-eye-view";
   # native loader: the config is plain ESM, and the default loader writes a
@@ -44,7 +17,7 @@ let
 in {
   # Provider keys, kept as one dotenv file: `sops hosts/mainframe/secrets/gev.env`
   sops.secrets.gev-env = {
-    sopsFile = ../secrets/gev.env;
+    sopsFile = ../../secrets/gev.env;
     format = "dotenv";
     key = "";
     restartUnits = [ "gods-eye-view.service" ];
@@ -65,7 +38,7 @@ in {
       HOST = "127.0.0.1";
       PORT = toString port;
       # Vite only accepts local hostnames by default
-      __VITE_ADDITIONAL_SERVER_ALLOWED_HOSTS = domain;
+      __VITE_ADDITIONAL_SERVER_ALLOWED_HOSTS = host;
       OPENSKY_AUTH_MODE = "anon";
       # nginx is the only peer the app sees, so these act as global ceilings
       GEV_RATELIMIT_OPENAI_PER_MIN = "30";
@@ -112,6 +85,16 @@ in {
       ExecStart = "${vite} preview ${appDir} ${viteArgs} --host 127.0.0.1 --port ${toString port} --strictPort";
       Restart = "always";
       RestartSec = 5;
+    };
+  };
+
+  services.ddclient.domains = [ host ];
+
+  services.nginx.virtualHosts.${host} = mkProxyVhost {
+    proxyPass = "http://127.0.0.1:${toString port}";
+    extraConfig = autheliaProtectedConfig;
+    extraLocations = {
+      "/internal/authelia/authz" = autheliaAuthLocation;
     };
   };
 }

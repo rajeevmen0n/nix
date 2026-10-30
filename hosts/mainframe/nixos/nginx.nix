@@ -52,14 +52,6 @@ in
       };
 
       # TODO(refactor): the vhosts below move into their service modules.
-      "${subdomains.gev}" = mkProxyVhost {
-        proxyPass = "http://127.0.0.1:4173";
-        extraConfig = autheliaProtectedConfig;
-        extraLocations = {
-          "/internal/authelia/authz" = autheliaAuthLocation;
-        };
-      };
-
       # Needledrop: nginx serves the built SPA; the Rust API stays on loopback.
       # The public API routes and their rate limits are in needledrop.nix.
       "${subdomains.needledrop}" = mkProxyVhost {

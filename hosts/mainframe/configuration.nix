@@ -11,7 +11,7 @@ in {
     ./nixos/anisette.nix
     ./nixos/authelia
     ./nixos/ddns.nix
-    ./nixos/gods-eye-view.nix
+    ./nixos/gods-eye-view
     ./nixos/lldap.nix
     ./nixos/minecraft.nix
     ./nixos/needledrop.nix
