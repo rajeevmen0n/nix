@@ -1,59 +1,15 @@
+# Shared web front door: nginx, the wildcard certificate and the firewall
+# ports. Each service adds its own virtual host from its own module.
 { config, ... }:
 
 let
-  domain = "icyfire.dev";
-  authDomain = "auth.${domain}";
-
-  # Reusable Authelia auth verification endpoint
-  autheliaAuthLocation = {
-    extraConfig = ''
-      internal;
-      proxy_pass http://127.0.0.1:9091/api/authz/auth-request;
-      proxy_set_header X-Original-Method $request_method;
-      proxy_set_header X-Original-URL $scheme://$http_host$request_uri;
-      proxy_set_header X-Forwarded-For $remote_addr;
-      proxy_set_header Content-Length "";
-      proxy_set_header Connection "";
-    '';
-  };
-
-  # Directives to protect a location with Authelia forward-auth
-  autheliaProtectedConfig = ''
-    auth_request /internal/authelia/authz;
-    auth_request_set $target_url $scheme://$http_host$request_uri;
-    error_page 401 =302 https://${authDomain}/?rd=$target_url;
-
-    auth_request_set $user $upstream_http_remote_user;
-    auth_request_set $groups $upstream_http_remote_groups;
-    auth_request_set $name $upstream_http_remote_name;
-    auth_request_set $email $upstream_http_remote_email;
-    proxy_set_header Remote-User $user;
-    proxy_set_header Remote-Groups $groups;
-    proxy_set_header Remote-Name $name;
-    proxy_set_header Remote-Email $email;
-  '';
-
-  # Extra headers for identity / auth endpoints
-  forwardAuthHeaders = ''
-    proxy_set_header X-Forwarded-URI $request_uri;
-    proxy_set_header X-Forwarded-Ssl on;
-  '';
-
-  # Helper for standard SSL-enabled reverse proxy vhosts
-  mkProxyVhost = {
-    proxyPass,
-    proxyWebsockets ? true,
-    extraConfig ? "",
-    extraLocations ? { },
-  }: {
-    forceSSL = true;
-    useACMEHost = domain;
-    locations = {
-      "/" = {
-        inherit proxyPass proxyWebsockets extraConfig;
-      };
-    } // extraLocations;
-  };
+  inherit (import ./domain.nix) domain subdomains;
+  inherit (import ./lib.nix)
+    autheliaAuthLocation
+    autheliaProtectedConfig
+    forwardAuthHeaders
+    mkProxyVhost
+    ;
 in
 {
   sops.secrets.cloudflare = {};
@@ -65,7 +21,7 @@ in
 
   security.acme = {
     acceptTerms = true;
-    defaults.email = "admin@icyfire.dev";
+    defaults.email = "admin@${domain}";
     certs."${domain}" = {
       inherit domain;
       group = "nginx";
@@ -96,29 +52,21 @@ in
         useACMEHost = domain;
       };
 
-      "anisette.${domain}" = {
-        forceSSL = true;
-        useACMEHost = domain;
-        locations."/" = {
-          proxyPass = "http://127.0.0.1:6969";
-          proxyWebsockets = true;
-        };
-      };
-
-      "headscale.${domain}" = mkProxyVhost {
+      # TODO(refactor): the vhosts below move into their service modules.
+      "${subdomains.headscale}" = mkProxyVhost {
         proxyPass = "http://127.0.0.1:8080";
       };
 
-      "headplane.${domain}" = mkProxyVhost {
+      "${subdomains.headplane}" = mkProxyVhost {
         proxyPass = "http://127.0.0.1:3000";
         extraConfig = autheliaProtectedConfig;
         extraLocations = {
           "/internal/authelia/authz" = autheliaAuthLocation;
-          "= /".return = "302 https://headplane.${domain}/admin";
+          "= /".return = "302 https://${subdomains.headplane}/admin";
         };
       };
 
-      "gev.${domain}" = mkProxyVhost {
+      "${subdomains.gev}" = mkProxyVhost {
         proxyPass = "http://127.0.0.1:4173";
         extraConfig = autheliaProtectedConfig;
         extraLocations = {
@@ -128,7 +76,7 @@ in
 
       # Needledrop: nginx serves the built SPA; the Rust API stays on loopback.
       # The public API routes and their rate limits are in needledrop.nix.
-      "needledrop.${domain}" = mkProxyVhost {
+      "${subdomains.needledrop}" = mkProxyVhost {
         proxyPass = "http://127.0.0.1:4811";
         extraLocations = {
           "/internal/authelia/authz" = autheliaAuthLocation;
@@ -153,12 +101,12 @@ in
         };
       };
 
-      "auth.${domain}" = mkProxyVhost {
+      "${subdomains.auth}" = mkProxyVhost {
         proxyPass = "http://127.0.0.1:9091";
         extraConfig = forwardAuthHeaders;
       };
 
-      "ldap.${domain}" = mkProxyVhost {
+      "${subdomains.ldap}" = mkProxyVhost {
         proxyPass = "http://127.0.0.1:17170";
         extraConfig = forwardAuthHeaders;
       };

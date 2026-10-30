@@ -1,4 +1,10 @@
-{ ... }: {
+{ ... }:
+
+let
+  inherit (import ./domain.nix) domain subdomains;
+  host = subdomains.anisette;
+in
+{
   virtualisation.docker.enable = true;
 
   virtualisation.oci-containers = {
@@ -10,6 +16,17 @@
       volumes = [
         "anisette-v3_data:/home/Alcoholic/.config/anisette-v3/lib/"
       ];
+    };
+  };
+
+  services.ddclient.domains = [ host ];
+
+  services.nginx.virtualHosts.${host} = {
+    forceSSL = true;
+    useACMEHost = domain;
+    locations."/" = {
+      proxyPass = "http://127.0.0.1:6969";
+      proxyWebsockets = true;
     };
   };
 }

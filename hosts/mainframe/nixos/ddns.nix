@@ -1,4 +1,11 @@
-{ config, pkgs, ... }: {
+# Dynamic DNS for the zone. Each service appends its own hostname to
+# services.ddclient.domains from its own module.
+{ config, pkgs, ... }:
+
+let
+  inherit (import ./domain.nix) domain subdomains;
+in
+{
   environment.systemPackages = [ pkgs.ddclient ];
 
   sops.secrets.cloudflare = {};
@@ -8,9 +15,10 @@
     usev4 = "webv4, webv4=https://api.ipify.org";
     usev6 = "disabled";
     protocol = "cloudflare";
-    zone = "icyfire.dev";
+    zone = domain;
     username = "token";
     passwordFile = config.sops.secrets.cloudflare.path;
-    domains = [ "icyfire.dev" "headscale.icyfire.dev" "auth.icyfire.dev" "anisette.icyfire.dev" "gev.icyfire.dev" "needledrop.icyfire.dev" ];
+    # TODO(refactor): these move into their service modules.
+    domains = with subdomains; [ domain headscale auth gev needledrop ];
   };
 }
