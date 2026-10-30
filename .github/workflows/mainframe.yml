@@ -44,7 +44,7 @@ jobs:
 
       - name: Build system
         run: |
-          nix build .#nixosConfigurations.mainframe.config.system.build.toplevel
+          nix build .#nixosConfigurations.mainframe-public.config.system.build.toplevel
 
       - name: Push to Cachix
         run: |

@@ -12,6 +12,7 @@
       url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nix-private.url = "git+ssh://git@github.com/rajeevmen0n/nix-private";
     nvf.url = "github:notashelf/nvf";
     plasma-manager = {
       url = "github:nix-community/plasma-manager";
@@ -63,24 +64,34 @@
           nixpkgs,
           home-manager,
           modules ? [ ],
+          privateModules ? [ ],
           homeManagerModules ? [ ],
           overlays ? [ ],
         }:
-        nixpkgs.lib.nixosSystem {
-          system = host.arch;
-          modules = [
-            inputs.sops-nix.nixosModules.sops
-            ./hosts/${host.dir}/configuration.nix
-            { nixpkgs.overlays = overlays; }
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.users."${host.user.username}" = import ./hosts/${host.dir}/home.nix;
-              home-manager.sharedModules = [
-                inputs.sops-nix.homeManagerModules.sops
-              ] ++ homeManagerModules;
-            }
-          ] ++ modules;
+        let
+          mk = extraModules: nixpkgs.lib.nixosSystem {
+            system = host.arch;
+            specialArgs = { inherit host; };
+            modules = [
+              inputs.sops-nix.nixosModules.sops
+              ./hosts/${host.dir}/configuration.nix
+              { nixpkgs.overlays = overlays; }
+              home-manager.nixosModules.home-manager
+              {
+                home-manager.useGlobalPkgs = true;
+                home-manager.users."${host.user.username}" = import ./hosts/${host.dir}/home.nix;
+                home-manager.sharedModules = [
+                  inputs.sops-nix.homeManagerModules.sops
+                ] ++ homeManagerModules;
+              }
+            ] ++ modules ++ extraModules;
+          };
+        in
+        {
+          "${host.hostname}" = mk privateModules;
+        }
+        // nixpkgs.lib.optionalAttrs (privateModules != [ ]) {
+          "${host.hostname}-public" = mk [ ];
         };
 
       # mkOverlayFromUnstable = pkgNames:
@@ -136,32 +147,36 @@
     in
 
     {
-      # Laptop NixOS config
-      nixosConfigurations."${hosts.ga605wi.hostname}" = mkNixOSConfigurations {
-        host = hosts.ga605wi;
-        nixpkgs = inputs.nixpkgs;
-        home-manager = inputs.home-manager;
-        homeManagerModules = [ inputs.plasma-manager.homeModules.plasma-manager ];
-        overlays = [ neovimOverlay unstableOverlay ];
-      };
+      nixosConfigurations =
+        # Laptop NixOS config
+        mkNixOSConfigurations {
+          host = hosts.ga605wi;
+          nixpkgs = inputs.nixpkgs;
+          home-manager = inputs.home-manager;
+          homeManagerModules = [ inputs.plasma-manager.homeModules.plasma-manager ];
+          overlays = [ neovimOverlay unstableOverlay ];
+        }
 
-      # Laptop WSL NixOS config
-      nixosConfigurations."${hosts.ga605wi-wsl.hostname}" = mkNixOSConfigurations {
-        host = hosts.ga605wi-wsl;
-        nixpkgs = inputs.nixpkgs;
-        home-manager = inputs.home-manager;
-        modules = [ inputs.nixos-wsl.nixosModules.default ];
-        overlays = [ neovimOverlay unstableOverlay ];
-      };
+        # Laptop WSL NixOS config
+        // mkNixOSConfigurations {
+          host = hosts.ga605wi-wsl;
+          nixpkgs = inputs.nixpkgs;
+          home-manager = inputs.home-manager;
+          modules = [ inputs.nixos-wsl.nixosModules.default ];
+          overlays = [ neovimOverlay unstableOverlay ];
+        }
 
-      # Mainframe config
-      nixosConfigurations."${hosts.mainframe.hostname}" = mkNixOSConfigurations {
-        host = hosts.mainframe;
-        nixpkgs = inputs.nixpkgs;
-        home-manager = inputs.home-manager;
-        modules = [ inputs.nix-minecraft.nixosModules.minecraft-servers ];
-        overlays = [ neovimOverlay unstableOverlay inputs.nix-minecraft.overlay ];
-      };
+        # Mainframe config
+        // mkNixOSConfigurations {
+          host = hosts.mainframe;
+          nixpkgs = inputs.nixpkgs;
+          home-manager = inputs.home-manager;
+          modules = [
+            inputs.nix-minecraft.nixosModules.minecraft-servers
+          ];
+          privateModules = [ inputs.nix-private.nixosModules.mainframe ];
+          overlays = [ neovimOverlay unstableOverlay inputs.nix-minecraft.overlay ];
+        };
 
       # Generic macOS config
       darwinConfigurations."macos" = mkDarwinConfigurations {

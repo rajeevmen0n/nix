@@ -146,6 +146,21 @@
         "type": "github"
       }
     },
+    "nix-private": {
+      "locked": {
+        "lastModified": 1793393732,
+        "narHash": "sha256-m6deppQX+itP6knlc856xhx3zHTs6m5VWb7f/6qTRYg=",
+        "ref": "refs/heads/main",
+        "rev": "3281c74a5bb2521ee9aa99fa2527be34f32d0afb",
+        "revCount": 10,
+        "type": "git",
+        "url": "ssh://git@github.com/rajeevmen0n/nix-private"
+      },
+      "original": {
+        "type": "git",
+        "url": "ssh://git@github.com/rajeevmen0n/nix-private"
+      }
+    },
     "nixos-wsl": {
       "inputs": {
         "flake-compat": "flake-compat_2",
@@ -281,6 +296,7 @@
         "home-manager": "home-manager",
         "nix-darwin": "nix-darwin",
         "nix-minecraft": "nix-minecraft",
+        "nix-private": "nix-private",
         "nixos-wsl": "nixos-wsl",
         "nixpkgs": "nixpkgs_2",
         "nixpkgs-unstable": "nixpkgs-unstable",
