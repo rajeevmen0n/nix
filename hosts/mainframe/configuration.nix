@@ -9,7 +9,7 @@ in {
     ./hardware-configuration.nix
 
     ./nixos/anisette.nix
-    ./nixos/authelia.nix
+    ./nixos/authelia
     ./nixos/ddns.nix
     ./nixos/gods-eye-view.nix
     ./nixos/lldap.nix

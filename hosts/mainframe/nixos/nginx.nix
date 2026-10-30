@@ -7,7 +7,6 @@ let
   inherit (import ./lib.nix)
     autheliaAuthLocation
     autheliaProtectedConfig
-    forwardAuthHeaders
     mkProxyVhost
     ;
 in
@@ -99,11 +98,6 @@ in
             extraConfig = autheliaProtectedConfig;
           };
         };
-      };
-
-      "${subdomains.auth}" = mkProxyVhost {
-        proxyPass = "http://127.0.0.1:9091";
-        extraConfig = forwardAuthHeaders;
       };
     };
   };
