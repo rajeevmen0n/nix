@@ -6,7 +6,6 @@
       format.enable = true;
       lsp.enable = true;
     };
-    lsp.servers.nil.settings.nil.nix.flake.autoArchive = false;
     autocmds = [
       {
         enable = true;

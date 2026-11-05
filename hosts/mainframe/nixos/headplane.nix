@@ -34,6 +34,7 @@ in
       headscale = {
         url = headscaleUrl;
         public_url = "https://${subdomains.headscale}";
+        api_key_path = "/var/lib/headplane/api_key";
       };
 
       oidc = {
@@ -41,7 +42,6 @@ in
         issuer = "https://${subdomains.auth}";
         client_id = "headplane";
         client_secret_path = config.sops.secrets.headplane_oidc_client_secret.path;
-        headscale_api_key_path = "/var/lib/headplane/api_key";
         token_endpoint_auth_method = "client_secret_post";
         scope = "openid email profile";
         disable_api_key_login = false;
