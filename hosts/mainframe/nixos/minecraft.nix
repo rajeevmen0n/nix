@@ -9,8 +9,10 @@
     servers = {
       onlypros = {
         enable = true;
-        package = pkgs.paperServers.paper-1_21_11;
+        package = pkgs.paperServers.paper-26_3;
         jvmOpts = "-Xms6G -Xmx6G";
+
+        serverProperties.level-seed = "1453617059429781824";
 
         symlinks = {
           "ops.json" = pkgs.writeText "ops.json" (builtins.toJSON [
